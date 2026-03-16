@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+<center><b><titel> www.steam-inventar-manager.de </font></title></b></center><br>
+</head>
+
+<body>
+    <h1><center><font color = "#FFFFFF"> Willkommen beim Steam-Inventar-Manager </font></center></h1>
+
+    <p></p>
+
+    <ul>
+        {% for item in tech_list %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+<!-- Hintergrundbild -->
+<style>
+body {
+	background-image: url("https://wallpapers.com/images/hd/2560x1440-black-wallpaper-qeb1t2mdo52iv94m.jpg");
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-position: center;}
+</style>
+
+</html>
