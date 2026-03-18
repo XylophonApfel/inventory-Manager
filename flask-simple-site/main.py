@@ -6,11 +6,11 @@ app = Flask(__name__)
  
 @app.route("/")
 def startseite():
-    return render_template("startseite.html")
+    return render_template("Login.html")
 
 @app.route("/login")
 def einloggen():
-    return render_template("einloggen.html")
+    return render_template("Dashboard.html")
 
 def main():
     erstelle_datenbank()
