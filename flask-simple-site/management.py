@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 def erstelle_datenbank():
     # 1. Verbindung zur lokalen SQLite-Datenbank herstellen (Datei wird erstellt, falls sie nicht existiert)
@@ -58,21 +59,29 @@ def erstelle_datenbank():
     print("Datenbank und Tabellen wurden erfolgreich initialisiert!")
 
 def Datenbank_befhel_ausfuehren(Befehl):
+    import sqlite3
     con = sqlite3.connect('inventar_manager.db')
 
     cur = con.cursor()
     Ergebniss = cur.execute(Befehl)
+
+    # Bei SELECT-Abfragen die Daten zurückgeben, statt sie zu verwerfen.
+    if Ergebniss.description is not None:
+        daten = Ergebniss.fetchall()
+        con.close()
+        return daten
+
     con.commit()
 
     con.close()
-    return (Ergebniss)
+    return
 
 def Benutzer_erstellen(Benutzername, Passwort):
     wert = Benutzer_vorhanden(Benutzername)
 
     if wert == 0:
+        print("Benutzer anlegen")
         Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort}');")
-        Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test','123');")
 
     elif wert == 1:
         print("Benutzer bereits vorhanden!")
@@ -80,7 +89,21 @@ def Benutzer_erstellen(Benutzername, Passwort):
 
 
 def Benutzer_vorhanden(Benutzername):
-    pass
+    Ergebniss = Datenbank_befhel_ausfuehren("Select benutzername from benutzer;")
+    Liste_Benutzer = []
+
+    for i in Ergebniss:
+        Liste_Benutzer.append(i[0])
+        
+    if Benutzername in Liste_Benutzer:
+       print("Benutzer bereits vorhanden!")
+       wert = 1
+    else:
+       print("Benutzer wird angelegt")
+       wert = 0
+    
+    return wert
+
 
 def Benutzer_anmelden(Benutzername, Passwort):
     Ergebniss = Datenbank_befhel_ausfuehren("Select * From benutzer;")
@@ -91,3 +114,9 @@ def Inventar_Gesamtwert_berechnen():
 
 def Item_Gesamtwert_berechnen():
     pass
+
+if __name__ == "__main__":
+    #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
+    # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
+    os.system("cls")
+    Benutzer_erstellen("Aron", "123")
