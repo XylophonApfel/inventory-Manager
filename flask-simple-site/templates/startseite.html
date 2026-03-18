@@ -1,30 +1,38 @@
 <!doctype html>
 <html lang="de">
 
+
 <head>
     <meta charset="utf-8" />
 <center><b><titel> www.steam-inventar-manager.de </font></title></b></center><br>
 </head>
 
 <body>
-    <h1><center><font color = "#FFFFFF"> Willkommen beim Steam-Inventar-Manager </font></center></h1>
+    <h1><center> Willkommen beim Steam-Inventar-Manager </center></h1>
+    <h2><center> Hier klicken um dich anzumelden</center></h2>
 
-    <p></p>
+<!-- BETRETEN-Feld -->
+<br>
+<center>
+<form name="eKiwiButton">
+<input  type="button"
+        value="BETRETEN"
+        style="width: 200px; height: 60px; font-size: 20px;border-radius: 20px; background-color:gold;"
+        onClick="self.location.href=('http://www.')">
+</form>
+</center>
 
-    <ul>
-        {% for item in tech_list %}
-        <li>{{ item }}</li>
-        {% endfor %}
-    </ul>
+
+
 </body>
 
 <!-- Hintergrundbild -->
 <style>
 body {
-	background-image: url("https://wallpapers.com/images/hd/2560x1440-black-wallpaper-qeb1t2mdo52iv94m.jpg");
-	background-size: auto;
-	background-repeat: no-repeat;
-	background-position: center;}
+  background-image: url('https://img.freepik.com/premium-vector/abstract-blurred-mesh-purple-blue-teal-background-soft-light-gradient-backdrop-with-place_255592-1735.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 </style>
-
 </html>
