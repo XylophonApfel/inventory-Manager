@@ -5,8 +5,12 @@ from management import *
 app = Flask(__name__)
  
 @app.route("/")
-def home():
+def startseite():
     return render_template("startseite.html")
+
+@app.route("/login")
+def einloggen():
+    return render_template("einloggen.html")
 
 def main():
     erstelle_datenbank()

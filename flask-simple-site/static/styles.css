@@ -1,0 +1,37 @@
+
+/* Hintergrundbild */
+body {
+    background-image: url('https://img.freepik.com/premium-vector/abstract-blurred-mesh-purple-blue-teal-background-soft-light-gradient-backdrop-with-place_255592-1735.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Alle a Elemente werden so vorkonfiguriert */
+a {
+    color: black;
+    text-decoration: none;
+    
+}
+
+/* Buttons */
+.button1 {
+    background-color: gold;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 40px;
+}
+
+
+h1 {
+            font-family: Arial, Helvetica, sans-serif;  /* Font style */
+            font-size: 36px;                            /* Text size */
+            color: #2c3e50;                           /* Text color */
+            text-align: center;                         /* Center alignment */
+            text-transform: uppercase;                  /* Uppercase letters */
+            letter-spacing: 2px;                        /* Space between letters */
+            background-color: #ecf0f1;                /* Background color */
+            padding: 10px;                              /* Space inside */
+            border-radius: 8px;                         /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);    /* Drop shadow */
+        }

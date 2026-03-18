@@ -5,34 +5,22 @@
 <head>
     <meta charset="utf-8" />
 <center><b><titel> www.steam-inventar-manager.de </font></title></b></center><br>
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
+<!-- Überschriften -->
     <h1><center> Willkommen beim Steam-Inventar-Manager </center></h1>
     <h2><center> Hier klicken um dich anzumelden</center></h2>
 
 <!-- BETRETEN-Feld -->
 <br>
 <center>
-<form name="eKiwiButton">
-<input  type="button"
-        value="BETRETEN"
-        style="width: 200px; height: 60px; font-size: 20px;border-radius: 20px; background-color:gold;"
-        onClick="self.location.href=('http://www.')">
-</form>
+    <a href="/login" class="button1">BETRETEN</a>
+
 </center>
 
 
 
 </body>
-
-<!-- Hintergrundbild -->
-<style>
-body {
-  background-image: url('https://img.freepik.com/premium-vector/abstract-blurred-mesh-purple-blue-teal-background-soft-light-gradient-backdrop-with-place_255592-1735.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-</style>
 </html>
