@@ -109,14 +109,23 @@ def Benutzer_vorhanden(Benutzername):
 
 
 def Benutzer_anmelden(Benutzername, Passwort):
-    Ergebniss = Datenbank_befhel_ausfuehren("Select * From benutzer;")
-    print(Ergebniss)
+    while True:
+        try:
+            Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
+            print(Ergebniss)
+            if Passwort == Ergebniss[0][0]:
+                return print("Richtig!")
+            else:
+                return print("Bitte geben Sie ein gültigen Passwort ein!")
+        except:
+            return print("Bitte geben Sie ein gültigen Benutzername ein!")
 
 def Inventar_Gesamtwert_berechnen():
     pass
 
-def Item_Gesamtwert_berechnen():
-    pass
+def Item_Gesamtwert_berechnen(Benutzer_id):
+    Gesamtwert = Datenbank_befhel_ausfuehren(f"Select item_id, menge * kaufpreis_stueck AS Gesamtwert_Item From inventar WHERE benutzer_id = {Benutzer_id}; ")
+    return Gesamtwert
 
 def Kisten_In_Datenbanken_anlegen():
 
@@ -274,5 +283,7 @@ def Kisten_Preis():
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
+    # Benutzer_anmelden("Test", "123")
     os.system("cls")
+    
 
