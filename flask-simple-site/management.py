@@ -1,5 +1,8 @@
 import sqlite3
 import os
+import requests
+import time
+from datetime import datetime
 
 def erstelle_datenbank():
     # 1. Verbindung zur lokalen SQLite-Datenbank herstellen (Datei wird erstellt, falls sie nicht existiert)
@@ -106,17 +109,181 @@ def Benutzer_vorhanden(Benutzername):
 
 
 def Benutzer_anmelden(Benutzername, Passwort):
-    Ergebniss = Datenbank_befhel_ausfuehren("Select * From benutzer;")
-    print(Ergebniss)
+    while True:
+        try:
+            Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
+            print(Ergebniss)
+            if Passwort == Ergebniss[0][0]:
+                return print("Richtig!")
+            else:
+                return print("Bitte geben Sie ein gültigen Passwort ein!")
+        except:
+            return print("Bitte geben Sie ein gültigen Benutzername ein!")
 
 def Inventar_Gesamtwert_berechnen():
     pass
 
-def Item_Gesamtwert_berechnen():
-    pass
+def Item_Gesamtwert_berechnen(Benutzer_id):
+    Gesamtwert = Datenbank_befhel_ausfuehren(f"Select item_id, menge * kaufpreis_stueck AS Gesamtwert_Item From inventar WHERE benutzer_id = {Benutzer_id}; ")
+    return Gesamtwert
+
+def Kisten_In_Datenbanken_anlegen():
+
+    csgo_cases = [
+    # --- Klassische & Frühe Kisten ---
+    "CS:GO Weapon Case",
+    "CS:GO Weapon Case 2",
+    "CS:GO Weapon Case 3",
+    "Winter Offensive Weapon Case",
+    
+    # --- eSports Kisten ---
+    "eSports 2013 Case",
+    "eSports 2013 Winter Case",
+    "eSports 2014 Summer Case",
+    
+    # --- Operations Kisten ---
+    "Operation Bravo Case",
+    "Operation Phoenix Weapon Case",
+    "Operation Breakout Weapon Case",
+    "Operation Vanguard Weapon Case",
+    "Operation Wildfire Case",
+    "Operation Hydra Case",
+    "Shattered Web Case",
+    "Operation Broken Fang Case",
+    "Operation Riptide Case",
+    
+    # --- Standard / Community Kisten ---
+    "Huntsman Weapon Case",
+    "Chroma Case",
+    "Chroma 2 Case",
+    "Chroma 3 Case",
+    "Falchion Case",
+    "Shadow Case",
+    "Revolver Case",
+    "Gamma Case",
+    "Gamma 2 Case",
+    "Glove Case",
+    "Spectrum Case",
+    "Spectrum 2 Case",
+    "Clutch Case",
+    "Horizon Case",
+    "Danger Zone Case",
+    "Prisma Case",
+    "CS20 Case",
+    "Prisma 2 Case",
+    "Fracture Case",
+    "Snakebite Case",
+    "Dreams & Nightmares Case",
+    "Recoil Case",
+    "Revolution Case",
+    
+    # --- CS2 Ära ---
+    "Kilowatt Case",
+    "Gallery Case"
+]
+    for i in csgo_cases:
+        print(i)
+        Datenbank_befhel_ausfuehren(f"INSERT OR IGNORE INTO gegenstand (name, typ) VALUES('{i}', 'Kiste');")
+
+
+
+def Kisten_Preis():
+    alle_daten = {}
+
+    csgo_cases = [
+    # --- Klassische & Frühe Kisten ---
+    "CS:GO Weapon Case",
+    "CS:GO Weapon Case 2",
+    "CS:GO Weapon Case 3",
+    "Winter Offensive Weapon Case",
+    
+    # --- eSports Kisten ---
+    "eSports 2013 Case",
+    "eSports 2013 Winter Case",
+    "eSports 2014 Summer Case",
+    
+    # --- Operations Kisten ---
+    "Operation Bravo Case",
+    "Operation Phoenix Weapon Case",
+    "Operation Breakout Weapon Case",
+    "Operation Vanguard Weapon Case",
+    "Operation Wildfire Case",
+    "Operation Hydra Case",
+    "Shattered Web Case",
+    "Operation Broken Fang Case",
+    "Operation Riptide Case",
+    
+    # --- Standard / Community Kisten ---
+    "Huntsman Weapon Case",
+    "Chroma Case",
+    "Chroma 2 Case",
+    "Chroma 3 Case",
+    "Falchion Case",
+    "Shadow Case",
+    "Revolver Case",
+    "Gamma Case",
+    "Gamma 2 Case",
+    "Glove Case",
+    "Spectrum Case",
+    "Spectrum 2 Case",
+    "Clutch Case",
+    "Horizon Case",
+    "Danger Zone Case",
+    "Prisma Case",
+    "CS20 Case",
+    "Prisma 2 Case",
+    "Fracture Case",
+    "Snakebite Case",
+    "Dreams & Nightmares Case",
+    "Recoil Case",
+    "Revolution Case",
+    
+    # --- CS2 Ära ---
+    "Kilowatt Case",
+    "Gallery Case"
+]
+
+    for i in csgo_cases:
+        print(i)
+        url = f"https://steamcommunity.com/market/priceoverview/?appid=730&currency=3&market_hash_name={i}"
+        
+        try:
+            antwort = requests.get(url)
+            daten = antwort.json()
+            
+            # Prüfen, ob Steam uns den Preis geschickt hat
+            if daten.get("success") == True:
+                zeit_formatiert = datetime.now().strftime("%H:%M:%S")
+                # Den niedrigsten Preis holen (oder "0,00€" falls er fehlt)
+                roher_preis = daten.get("lowest_price", "0,00€")
+                
+                # Preis sauber machen: € weg, Striche zu Nullen, Komma zu Punkt
+                sauber = roher_preis.replace('€', '').replace('-', '0').replace(',', '.').strip()
+                preis_als_zahl = float(sauber)
+                print(preis_als_zahl)
+                print(zeit_formatiert)
+
+                id_kiste = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")
+                Datenbank_befhel_ausfuehren(f"INSERT OR IGNORE INTO preis_verlauf (item_id, preis, zeitstempel) VALUES('{id_kiste}', '{preis_als_zahl}', '{zeit_formatiert}');")
+                print(f"{i} erledigt\n")
+                
+                
+            else:
+                print(f"[FEHLER] Steam hat '{i}' blockiert oder nicht gefunden.")
+                alle_daten[i] = 0.00
+                
+        except Exception as e:
+            print(f"[NETZWERKFEHLER] Bei {i}: {e}")
+            alle_daten[i] = 0.00
+
+        # WICHTIG: 2 Sekunden Pause, damit Steam uns nicht wegen Spam blockt!
+        time.sleep(2)
+        
 
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
+    # Benutzer_anmelden("Test", "123")
     os.system("cls")
-    Benutzer_erstellen("Aron", "123")
+    
+
