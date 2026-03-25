@@ -1,7 +1,7 @@
 
 /* Hintergrundbild */
 body {
-    background-image: url('https://img.freepik.com/premium-vector/abstract-blurred-mesh-purple-blue-teal-background-soft-light-gradient-backdrop-with-place_255592-1735.jpg');
+    background-image: url('https://th.bing.com/th/id/R.0dfb065940a55a924e3fcf36eda35a41?rik=fj%2bCuw4VMBEy0w&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fGrey-backgrounds-for-desktop.jpg&ehk=ANTIrAd8uD0UwyynKX6fbOZGC2nBgGpgyLc9If9fUsQ%3d&risl=&pid=ImgRaw&r=0');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -21,6 +21,27 @@ a {
     border-radius: 20px;
     font-size: 40px;
 }
+
+/*Login Feld */
+/*Font*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+/*Farben*/
+:root {
+	--color-background: #f0f0f0;
+	--color-text: #333;
+	--color-border: #ccc;
+	--color-placeholder: #777;
+	--color-primary: #007bff;
+	--color-primary-hover: #0056b3;
+	--color-link: #1a73e8;
+	--color-divider: #ddd;
+	--color-social-hover: #f0f0f0;
+	--color-floating-label: #5f6368;
+	--color-white: #fff;
+}
+
+/**/
 
 
 h1 {

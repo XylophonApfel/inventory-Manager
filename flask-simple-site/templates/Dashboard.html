@@ -9,15 +9,46 @@
     <meta charset="utf-8" />
     <center><b><titel> Steam-Inventar-Manager </font></title></b></center><br>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    
+    <!--<h1><center> Steam-Inventar-Manager </center></h1>-->
 </head>
 
 <body>
-    <h1><center> Steam-Inventar-Manager </center></h1>
+    
+
+    <div class="container">
+        <div class="form-container">
+            <div class="form-blob">
+                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--1">
+                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--2">
+                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--3">
+            </div>
+        </div>
+        <div class="form-header">
+            <h2>Willkommen</h2>
+            <h3>|Bitte gib deine Daten ein|</h3>
+        </div>
+        <form class="form-box">
+            <div class="input-group">
+                <div class="input-group">
+                    <input type="email" id="email" class="input-field" placeholder="" required>
+                    <label for="email" class="floating-label">Email address</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" class="input-field" placeholder="" required>
+                    <label for="password" class="floating-label">Password</label>
+                    <div class="eye-icon">
+                <br>
+                </div>
+
+
+
+
+
+
+    </div>
 
 
 
 </body>
 
-    <button href="/login" class="button1">Login</button>
 </html>
