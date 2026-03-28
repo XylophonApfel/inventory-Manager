@@ -1,6 +1,6 @@
 import sqlite3
 import os
-import requests
+#import requests
 import time
 from datetime import datetime
 
