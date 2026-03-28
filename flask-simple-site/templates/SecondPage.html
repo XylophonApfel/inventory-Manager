@@ -3,8 +3,7 @@
 
 
 <head>
-
-    <title>DASHBOARD</title>
+    <title>LOGIN/REGISTER</title>
     <link rel="icon" type="image/x-icon" href="/static/dashboard.png">
     <meta charset="utf-8" />
     <center><b><titel> Steam-Inventar-Manager </font></title></b></center><br>
@@ -13,19 +12,19 @@
 </head>
 
 <body>
-    
 
     <div class="container">
         <div class="form-container">
             <div class="form-blob">
-                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--1">
-                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--2">
-                <img src="templates/styless.css" alt="blob" class="blob-image blob-image--3">
+                <img src="static/styless.css" alt="blob" class="blob-image blob-image--1">
+                <img src="static/styless.css" alt="blob" class="blob-image blob-image--2">
+                <img src="static/styless.css" alt="blob" class="blob-image blob-image--3">
             </div>
-        </div>
+
         <div class="form-header">
             <h2>Willkommen</h2>
             <h3>|Bitte gib deine Daten ein|</h3>
+
         </div>
         <form class="form-box">
             <div class="input-group">
@@ -37,17 +36,30 @@
                     <input type="password" id="password" class="input-field" placeholder="" required>
                     <label for="password" class="floating-label">Password</label>
                     <div class="eye-icon">
-                <br>
+                        p
+                    </div>
                 </div>
-
-
-
-
-
-
+                <div class="inmput-group checkbox-group">
+                    <div class="form-col remember-me">
+                        <input type="checkbox" id="remember-me-checkbox" class="checkbox-field">
+                        <label for="remember-me-checkbox">Remember me</label>
+                    
+                        
+                    </div>
+                    <div class="form-col">
+                        <a href="#" class="form-link">Forgot your password?</a>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn form-btn--submit">Sign In</button>
+            </form>
+            <div class="form-divider">
+                <p>Or</p>
+            </div>
+                </div>
+                <p> Dont have an account? <a href="#" class="form-link">Sign up</a></p>
+            </div>
+        </div>
     </div>
-
-
 
 </body>
 
