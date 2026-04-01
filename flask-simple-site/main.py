@@ -16,6 +16,10 @@ def einloggen():
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
     return render_template("SecondPage.html")
 
+@app.route("/signin")
+def dashboard():
+    return render_template("ThirdPage.html")
+
 def main():
     erstelle_datenbank()
 
