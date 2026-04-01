@@ -109,12 +109,14 @@ def Benutzer_vorhanden(Benutzername):
 
 
 def Benutzer_anmelden(Benutzername, Passwort):
+    wert = 0
     while True:
         try:
             Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
             print(Ergebniss)
             if Passwort == Ergebniss[0][0]:
-                return print("Richtig!")
+                print("Richtig!")
+                return 1
             else:
                 return print("Bitte geben Sie ein gültigen Passwort ein!")
         except:

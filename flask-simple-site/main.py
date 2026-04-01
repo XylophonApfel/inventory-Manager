@@ -1,8 +1,9 @@
+import os
 from flask import Flask, render_template, request
 from management import *
  
-
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
  
 @app.route("/")
 def startseite():
@@ -14,6 +15,10 @@ def einloggen():
         Eingabe_Name = request.form.get("benutzername")
         Eingabe_Passwort = request.form.get("passwort")
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
+        Wert = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
+        if Wert == 1:
+            return render_template("ThirdPage.html")
+        
     return render_template("SecondPage.html")
 
 @app.route("/signin")
@@ -24,6 +29,6 @@ def main():
     erstelle_datenbank()
 
 if __name__ == "__main__":
-    main()
-    app.run(debug=True)
-    
+    #main()
+    app.run(host="127.0.0.1", port=3000, debug=False, use_reloader=False)
+
