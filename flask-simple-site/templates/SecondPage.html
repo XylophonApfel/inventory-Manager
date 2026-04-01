@@ -26,31 +26,35 @@
             <h3>|Bitte gib deine Daten ein|</h3>
 
         </div>
-        <form class="form-box">
-            <div class="input-group">
+            <form class="form-box" action="/login" method="POST">
                 <div class="input-group">
-                    <input type="email" id="email" class="input-field" placeholder="" required>
-                    <label for="email" class="floating-label">Email address</label>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" class="input-field" placeholder="" required>
-                    <label for="password" class="floating-label">Password</label>
-                    <div class="eye-icon">
-                        p
-                    </div>
-                </div>
-                <div class="inmput-group checkbox-group">
-                    <div class="form-col remember-me">
-                        <input type="checkbox" id="remember-me-checkbox" class="checkbox-field">
-                        <label for="remember-me-checkbox">Remember me</label>
                     
-                        
+                    <div class="input-group">
+                        <input type="text" name="benutzername" id="email" class="input-field" placeholder="" required>
+                        <label for="email" class="floating-label">Benutzername / Email</label>
                     </div>
-                    <div class="form-col">
-                        <a href="#" class="form-link">Forgot your password?</a>
+                    
+                    <div class="input-group">
+                        <input type="password" name="passwort" id="password" class="input-field" placeholder="" required>
+                        <label for="password" class="floating-label">Password</label>
+                        <div class="eye-icon">
+                            p
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="submit-btn form-btn--submit">Sign In</button>
+                    
+                    <div class="input-group checkbox-group">
+                        <div class="form-col remember-me">
+                            <input type="checkbox" id="remember-me-checkbox" class="checkbox-field">
+                            <label for="remember-me-checkbox">Remember me</label>
+                        </div>
+                        <div class="form-col">
+                            <a href="#" class="form-link">Forgot your password?</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn form-btn--submit">Sign In</button>
+                    
+                </div> 
             </form>
             <div class="form-divider">
                 <p>Or</p>
