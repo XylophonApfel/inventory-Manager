@@ -16,7 +16,7 @@ def einloggen():
         Eingabe_Passwort = request.form.get("passwort")
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
         Wert = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
-        if Wert == 1:
+        if Wert == True:
             return render_template("ThirdPage.html")
         
     return render_template("SecondPage.html")
@@ -29,6 +29,7 @@ def main():
     erstelle_datenbank()
 
 if __name__ == "__main__":
-    #main()
-    app.run(host="127.0.0.1", port=3000, debug=False, use_reloader=False)
+    main()
+    app.run(host="127.0.0.1", port=5000)
+
 

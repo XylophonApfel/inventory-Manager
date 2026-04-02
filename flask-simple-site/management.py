@@ -3,6 +3,8 @@ import os
 #import requests
 import time
 from datetime import datetime
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 def erstelle_datenbank():
     # 1. Verbindung zur lokalen SQLite-Datenbank herstellen (Datei wird erstellt, falls sie nicht existiert)
@@ -81,10 +83,11 @@ def Datenbank_befhel_ausfuehren(Befehl):
 
 def Benutzer_erstellen(Benutzername, Passwort):
     wert = Benutzer_vorhanden(Benutzername)
+    Passwort_Hash = generate_password_hash(Passwort)
 
     if wert == 0:
         print("Benutzer anlegen")
-        Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort}');")
+        Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort_Hash}');")
 
     elif wert == 1:
         print("Benutzer bereits vorhanden!")
@@ -95,8 +98,9 @@ def Benutzer_vorhanden(Benutzername):
     Ergebniss = Datenbank_befhel_ausfuehren("Select benutzername from benutzer;")
     Liste_Benutzer = []
 
-    for i in Ergebniss:
-        Liste_Benutzer.append(i[0])
+    if Ergebniss is not None:
+        for i in Ergebniss:
+            Liste_Benutzer.append(i[0])
         
     if Benutzername in Liste_Benutzer:
        print("Benutzer bereits vorhanden!")
@@ -109,18 +113,25 @@ def Benutzer_vorhanden(Benutzername):
 
 
 def Benutzer_anmelden(Benutzername, Passwort):
-    wert = 0
-    while True:
-        try:
-            Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
-            print(Ergebniss)
-            if Passwort == Ergebniss[0][0]:
-                print("Richtig!")
-                return 1
-            else:
-                return print("Bitte geben Sie ein gültigen Passwort ein!")
-        except:
-            return print("Bitte geben Sie ein gültigen Benutzername ein!")
+    #Passwort_hash = hash(Passwort)
+    print(Benutzername)
+    try:
+        Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
+        print(Ergebniss)
+        #print(Passwort_hash)
+        if Ergebniss is None or len(Ergebniss) == 0:
+            print("Bitte geben Sie einen gültigen Benutzernamen ein!")
+            return 0
+        print(f"Gefundenes Passwort-Hash: {Ergebniss[0][0]}")
+        if check_password_hash(Ergebniss[0][0], Passwort):
+            print("Richtig!")
+            return 1
+        else:
+            print("Bitte geben Sie ein gültiges Passwort ein!")
+            return 0
+    except Exception as e:
+        print(f"Fehler beim Anmelden: {e}")
+        return 0
 
 def Inventar_Gesamtwert_berechnen():
     pass
@@ -280,12 +291,16 @@ def Kisten_Preis():
 
         # WICHTIG: 2 Sekunden Pause, damit Steam uns nicht wegen Spam blockt!
         time.sleep(2)
-        
+
+def hash(passwort):
+    sicherer_hash = generate_password_hash(passwort)
+    return sicherer_hash
 
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
     # Benutzer_anmelden("Test", "123")
     os.system("cls")
+    Benutzer_erstellen("Admin1", "Admin123")
     
 
