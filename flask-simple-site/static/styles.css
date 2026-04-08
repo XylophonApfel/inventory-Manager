@@ -7,8 +7,8 @@ body {
     background-size: cover;
 }
 
-/* Alle a Elemente werden so vorkonfiguriert */
-a {
+/* Alle a Elemente mit x werden so vorkonfiguriert */
+x {
     color: black;
     text-decoration: none;
     
@@ -26,141 +26,142 @@ a {
 /*Font*/
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
-/*Farben*/
-:root {
-	--color-background: #f0f0f0;
-	--color-text: #333;
-	--color-border: #ccc;
-	--color-placeholder: #777;
-	--color-primary: #007bff;
-	--color-primary-hover: #0056b3;
-	--color-link: #1a73e8;
-	--color-divider: #ddd;
-	--color-social-hover: #f0f0f0;
-	--color-floating-label: #5f6368;
-	--color-white: #fff;
-}
-/*Schriftart für das Login Feld*/
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: dm sans, sans-serif;
-}
-
-body{
-    background-color: var(--color-background);
-    color: var(--color-text);
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
     height: 100vh;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
 }
 
-.form-container{
-    background-color: var(--color-white);
-    padding: 50px 40px;
-    position: relative;
+.container {
     width: 100%;
-    max-width: 450px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
+    max-width: 400px;
+}
+
+.form-container {
+    position: relative;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     overflow: hidden;
 }
 
-.form-header{
+/* Header */
+.form-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Input */
+.input-group {
     position: relative;
-    z-index: 1;
+    margin-bottom: 1.5rem;
 }
 
-.form-header p{
-    color: var(--color-placeholder);
-}
-
-.form-header h2{
-    font-size: 32px;
-}
-
-.form-box{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 50px;   
-}
-
-.innput-group{
-    position: relative;
-    display: flex;
-}
-
-.input-field{
-    height: 48px;
-    padding-inline: 14px;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
+.input-field {
     width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     outline: none;
+    font-size: 14px;
 }
 
-#password{
-    padding-right: 30px;
-}
-
-.floating-label{
+.input-group label {
     position: absolute;
-    left: 8px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: var(--color-white);
-    padding-inline: 6px;
-    color: var(--color-placeholder);
+    background: #fff;
+    padding: 0 5px;
+    color: #999;
+    transition: 0.2s ease;
     pointer-events: none;
-    transition: .3s ease;
 }
 
-.input-field:focus ~ .floating-label,
-.input-field:not(:placeholder-shown) ~ .floating-label{
-    top: 0;
-    left: 8px;
-    transform: translateY(-50%);
-    color: var(--color-primary);
+/* Floating effect */
+.input-field:focus + label,
+.input-field:valid + label {
+    top: -8px;
+    font-size: 12px;
+    color: #4f46e5;
 }
 
-.input-field:focus{
-    border-color: var(--color-primary);
+/* Password eye */
+.password-group {
+    display: flex;
+    align-items: center;
 }
 
-.input-field:not(:focus):not(:placeholder-shown) ~ .floating-label{
-    color: var(--color-floating-label);
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
 }
 
-
-
-
-
-
-
-
-/*Diagramm*/
-
-.diagramm1{
-    const xArray = [50,60,70,80,90,100,110,120,130,140,150];
-    const yArray = [7,8,8,9,9,9,10,11,14,14,15];
-
-    const data = {}
-    x: xArray,
-    y: yArray,
-    mode: "lines",
-    type: "scatter"
-
-    xaxis: {range: [40, 160], title: "Square Meters"},
-    yaxis: {range: [5, 16], title: "Price in Millions"},
-    title: "House Prices vs Size"
+/* Options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
 }
+
+.form-link {
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+/* Button */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #4338ca;
+}
+
+/* Divider */
+.form-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #aaa;
+}
+
+/* Signup */
+.signup-text {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Blob decoration */
+.blob {
+    position: absolute;
+    width: 120px;
+    opacity: 0.2;
+}
+
+.blob--1 { top: -20px; left: -20px; }
+.blob--2 { bottom: -20px; right: -20px; }
+.blob--3 { top: 50%; left: 80%; }
+
 
 
 h1 {
