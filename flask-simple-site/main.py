@@ -25,6 +25,10 @@ def einloggen():
 def dashboard():
     return render_template("ThirdPage.html")
 
+@app.route("/register")
+def dashboard():
+    return render_template("ThirdPage.html")
+
 def main():
     erstelle_datenbank()
 
