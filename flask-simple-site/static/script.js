@@ -7,9 +7,11 @@ const diagramm = new Chart(ctx, {
         datasets: [{
             label: 'Umsäze durch Kisten',
             data: [1, 20, 60, 140, 190, 300, 250],
-            backgroundColor: ['white'],
+            backgroundColor: ['purple'],
             borderColor: 'black',
-            borderWidth: 1
+            borderWidth: 1,
+            pointRadius: 8,
+            pointHoverRadius: 10,                            
         }]
     },
     options: {
