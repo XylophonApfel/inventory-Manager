@@ -2,23 +2,28 @@
 <html lang="de">
 
 <head>
-
     <title>DASHBOARD</title>
     <link rel="icon" type="image/x-icon" href="/static/dashboard.png">
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
+
+<!--  -->
 
 <body>
 <center>
-<!-- Überschriften -->
+<!-- Überschrift -->
 <h2> Dashboard </h2>
+<br>
 
-    <br>
+<!-- Diagramm -->
+<canvas id="D1" width="400" height="200"></canvas>
+<br>
 
+<!-- Dropdown Menu für Kisten -->
 <label for="cars">Wähle eine/mehrere Kisten aus:</label>
-
 
 <select name="kisten" id="kiste">
     <option value="gamma1">Gamma 1</option>
@@ -26,13 +31,13 @@
     <option value="weaponcase">Weapon Case</option>
     <option value="gamma2">Gamma 2</option>
 </select>
-</center>
-
 <br>
 
 
 
 
 
+</center>
 </body>
+
 </html>
