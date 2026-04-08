@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>LOGIN/REGISTER</title>
+    <title>REGISTER</title>
     <link rel="icon" type="image/x-icon" href="/static/login.png">
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -14,7 +14,7 @@
 <body>
 <center>
     <a> Steam-Inventar-Manager</a>
-    <h1>Login / Register</h1>
+    <h1>Registrieren</h1>
 <div class="container">
     <div class="form-container">
 
@@ -26,7 +26,7 @@
         <br>
 
         <!-- Form -->
-        <form class="form-box" action="/login" method="POST">
+        <form class="form-box" action="/register" method="POST">
 
             <!-- Username -->
             <div class="input-group">
@@ -41,30 +41,18 @@
                 <span class="eye-icon">&#128065;</span>
             </div>
 
-            <!-- Options -->
-            <div class="form-options">
-                <label class="remember-me">
-                    <input type="checkbox" id="remember-me-checkbox">
-                    Angemeldet bleiben
-                </label>
-                <a href="#" class="form-link">Passwort vergessen?</a>
+            <!-- Password Bestätigen -->
+            <div class="input-group password-group">
+                <input type="password" name="passwort_confirm" id="password_confirm" class="input-field" required>
+                <label for="password_confirm">Passwort Bestätigen</label>
+                <span class="eye-icon">&#128065;</span>
             </div>
 
             <!-- Button -->
-            <button type="submit" class="submit-btn">Anmelden</button>
+            <button type="submit" class="submit-btn">Registrieren</button>
 
         </form>
 
-        <!-- Divider -->
-        <div class="form-divider">
-            <span>ODER</span>
-        </div>
-
-        <!-- Signup -->
-        <p class="signup-text">
-            Noch kein Konto?
-            <a href="/register" class="form-link">Registrieren</a>
-        </p>
 
     </div>
 </div>

@@ -81,16 +81,22 @@ def Datenbank_befhel_ausfuehren(Befehl):
     con.close()
     return
 
-def Benutzer_erstellen(Benutzername, Passwort):
+def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     wert = Benutzer_vorhanden(Benutzername)
+    if Passwort != Passwort_confirm:
+        wert = 2
     Passwort_Hash = generate_password_hash(Passwort)
 
     if wert == 0:
         print("Benutzer anlegen")
         Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort_Hash}');")
+        return 1
 
     elif wert == 1:
         print("Benutzer bereits vorhanden!")
+    
+    elif wert == 2:
+        print("Passwort ist nicht gleich!")
 
 
 
@@ -106,7 +112,7 @@ def Benutzer_vorhanden(Benutzername):
        print("Benutzer bereits vorhanden!")
        wert = 1
     else:
-       print("Benutzer wird angelegt")
+       print("Benutzer noch nicht vorhanden")
        wert = 0
     
     return wert

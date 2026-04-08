@@ -21,8 +21,16 @@ def einloggen():
         
     return render_template("LogInPage.html")
 
-@app.route("/register")
-def dashboard():
+@app.route("/register", methods=["GET", "POST"])
+def Registrieren():
+    if request.method == "POST":
+        Eingabe_Name = request.form.get("benutzername")
+        Eingabe_Passwort = request.form.get("passwort")
+        Eingabe_Passwort_confirm = request.form.get("passwort_confirm")
+        print(f"Veruschte Registrierung von {Eingabe_Name}")
+        Wert = Benutzer_erstellen(Eingabe_Name, Eingabe_Passwort, Eingabe_Passwort_confirm)
+        if Wert == True:
+            return render_template("LogInPage.html")
     return render_template("RegisterPage.html")
 
 def main():
