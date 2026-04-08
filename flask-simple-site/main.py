@@ -21,13 +21,9 @@ def einloggen():
         
     return render_template("LogInPage.html")
 
-@app.route("/signin")
-def dashboard():
-    return render_template("ThirdPage.html")
-
 @app.route("/register")
 def dashboard():
-    return render_template("ThirdPage.html")
+    return render_template("RegisterPage.html")
 
 def main():
     erstelle_datenbank()
@@ -35,4 +31,3 @@ def main():
 if __name__ == "__main__":
     main()
     app.run(host="127.0.0.1", port=5000)
-
