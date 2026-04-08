@@ -7,7 +7,7 @@ app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
  
 @app.route("/")
 def startseite():
-    return render_template("FirstPage.html")
+    return render_template("LogInPage.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def einloggen():
@@ -17,9 +17,9 @@ def einloggen():
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
         Wert = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
         if Wert == True:
-            return render_template("ThirdPage.html")
+            return render_template("DashboardPage.html")
         
-    return render_template("SecondPage.html")
+    return render_template("LogInPage.html")
 
 @app.route("/signin")
 def dashboard():
