@@ -9,7 +9,6 @@ const diagramm = new Chart(ctx, {
             data: [1, 20, 60, 140, 190, 300, 250],
             backgroundColor: ['white'],
             borderColor: 'black',
-            lineColor: 'white',
             borderWidth: 1
         }]
     },
@@ -21,3 +20,4 @@ const diagramm = new Chart(ctx, {
         }
     }
 });
+
