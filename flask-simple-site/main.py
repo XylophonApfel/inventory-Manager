@@ -33,6 +33,12 @@ def Registrieren():
             return render_template("LogInPage.html")
     return render_template("RegisterPage.html")
 
+@app.route("/item_hinzufuegen", methods=["POST", "GET"])
+def item_hinzufuegen():
+    Eingabe = request.form.get("ausgewaehlte_kiste")
+    print(Eingabe)
+    return render_template("DashboardPage.html")
+
 def main():
     erstelle_datenbank()
 

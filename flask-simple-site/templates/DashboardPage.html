@@ -23,16 +23,55 @@
 <br>
 
 <!-- Dropdown Menu für Kisten -->
-<label for="cars">Wähle eine/mehrere Kisten aus:</label>
+<form action="/item_hinzufuegen" method="POST">
+    
+    <label>Wähle eine Kiste aus:</label>
+    
+    <select name="ausgewaehlte_kiste" class="input-field">
+        
+        <option value="Chroma 2 Case">Chroma 2 Case</option>
+        <option value="Chroma 3 Case">Chroma 3 Case</option>
+        <option value="Chroma Case">Chroma Case</option>
+        <option value="Clutch Case">Clutch Case</option>
+        <option value="CS20 Case">CS20 Case</option>
+        <option value="CS:GO Weapon Case">CS:GO Weapon Case</option>
+        <option value="CS:GO Weapon Case 2">CS:GO Weapon Case 2</option>
+        <option value="CS:GO Weapon Case 3">CS:GO Weapon Case 3</option>
+        <option value="Danger Zone Case">Danger Zone Case</option>
+        <option value="Dreams & Nightmares Case">Dreams & Nightmares Case</option>
+        <option value="eSports 2013 Case">eSports 2013 Case</option>
+        <option value="eSports 2013 Winter Case">eSports 2013 Winter Case</option>
+        <option value="eSports 2014 Summer Case">eSports 2014 Summer Case</option>
+        <option value="Falchion Case">Falchion Case</option>
+        <option value="Fracture Case">Fracture Case</option>
+        <option value="Gallery Case">Gallery Case</option>
+        <option value="Gamma 2 Case">Gamma 2 Case</option>
+        <option value="Gamma Case">Gamma Case</option>
+        <option value="Glove Case">Glove Case</option>
+        <option value="Horizon Case">Horizon Case</option>
+        <option value="Huntsman Weapon Case">Huntsman Weapon Case</option>
+        <option value="Kilowatt Case">Kilowatt Case</option>
+        <option value="Operation Bravo Case">Operation Bravo Case</option>
+        <option value="Operation Breakout Weapon Case">Operation Breakout Weapon Case</option>
+        <option value="Operation Hydra Case">Operation Hydra Case</option>
+        <option value="Operation Phoenix Weapon Case">Operation Phoenix Weapon Case</option>
+        <option value="Operation Vanguard Weapon Case">Operation Vanguard Weapon Case</option>
+        <option value="Operation Wildfire Case">Operation Wildfire Case</option>
+        <option value="Prisma 2 Case">Prisma 2 Case</option>
+        <option value="Prisma Case">Prisma Case</option>
+        <option value="Recoil Case">Recoil Case</option>
+        <option value="Revolution Case">Revolution Case</option>
+        <option value="Revolver Case">Revolver Case</option>
+        <option value="Shadow Case">Shadow Case</option>
+        <option value="Shattered Web Case">Shattered Web Case</option>
+        <option value="Snakebite Case">Snakebite Case</option>
+        <option value="Spectrum 2 Case">Spectrum 2 Case</option>
+        <option value="Spectrum Case">Spectrum Case</option>
+        <option value="Winter Offensive Weapon Case">Winter Offensive Weapon Case</option>
 
-<select name="kisten" id="kiste">
-    <option value="gamma1">Gamma 1</option>
-    <option value="kilowatt">Kilowatt</option>
-    <option value="weaponcase">Weapon Case</option>
-    <option value="gamma2">Gamma 2</option>
-</select>
-<form>
-    <button type="submit" class="übermitteln">Submit</button>
+    </select>
+    
+    <button type="submit" class="submit-btn">Ins Inventar legen</button>
 </form>
 <br>
 
