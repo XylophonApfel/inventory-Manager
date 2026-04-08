@@ -1,12 +1,15 @@
 const ctx = document.getElementById('D1').getContext('2d');
 
 const diagramm = new Chart(ctx, {
-    type: 'bar', // Diagrammtyp: bar, line, pie, etc.
+    type: 'line',
     data: {
-        labels: ['Jan', 'Feb', 'Mär', 'Apr'],
+        labels: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul'],
         datasets: [{
-            label: 'Umsatz',
-            data: [120, 190, 300, 250],
+            label: 'Umsäze durch Kisten',
+            data: [1, 20, 60, 140, 190, 300, 250],
+            backgroundColor: ['white'],
+            borderColor: 'black',
+            lineColor: 'white',
             borderWidth: 1
         }]
     },
@@ -18,4 +21,3 @@ const diagramm = new Chart(ctx, {
         }
     }
 });
-
