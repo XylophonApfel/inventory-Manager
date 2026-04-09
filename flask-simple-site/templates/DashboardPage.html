@@ -13,6 +13,13 @@
 
 
 <body>
+<!-- Logout Button -->
+<a align="right" href="/logout" class="logout-btn"> Logout </a>
+
+<center>
+<a> Steam-Inventar-Manager</a>
+</center>
+
 <center>
 <!-- Überschrift -->
 <h2> Dashboard </h2>
@@ -20,16 +27,19 @@
 <br>
 </center>
 
+<!-- Gesamtwert des Inventars -->
+<div class="label1"> Gesamtwert in Euro </div>
+
 <!-- Diagramm -->
-<canvas align="left" id="D1" width="50" height="20"></canvas>
-<br>
+<!--<canvas align="left" id="D1" width="500" height="200"></canvas>
+<br>-->
 
 <!-- Dropdown Menu für Kisten -->
 <form action="/item_hinzufuegen" method="POST">
     
     <label>Wähle eine Kiste aus:</label>
     
-    <select name="ausgewaehlte_kiste" class="input-field">
+    <select name="ausgewaehlte_kiste" class="input-field1">
         
         <option value="Chroma 2 Case">Chroma 2 Case</option>
         <option value="Chroma 3 Case">Chroma 3 Case</option>
@@ -73,9 +83,11 @@
 
     </select>
     
-    <button type="submit" class="submit-btn">Ins Inventar legen</button>
+    <br>
+    <br>
+    <button align="left" type="submit" class="submit-btn1">Im Diagramm Anzeigen lassen</button>
+
 </form>
-<br>
 
 
 
