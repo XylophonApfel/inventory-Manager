@@ -25,7 +25,10 @@ def einloggen():
         if Wert == True:
             #Benutername Speichern
             session['benutzername'] = Eingabe_Name
-            return render_template("DashboardPage.html")
+            Gesamtpreis = Inventar_Gesamtwert_berechnen(session['benutzername'])
+            Gesamtpreis = round(Gesamtpreis[0][0], 2)
+            print(f"Gesamtpreis: {Gesamtpreis}")
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis)
         
     return render_template("LogInPage.html")
 
@@ -55,12 +58,14 @@ def item_hinzufuegen():
     # Abfrage wer der Aktuelle Benutzer ist
     aktueller_benutzer = session['benutzername']
     Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
+    Gesamtpreis = round(Gesamtpreis[0][0], 2)
+    print(f"Gesamtpreis: {Gesamtpreis}")
     Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
     Anzahl = request.form.get("anzahl")
     Kaufpreis = request.form.get("kaufpreis")
     print(f"Es werden {Anzahl} {Eingabe_kiste} zu {aktueller_benutzer} hinzugefügt für einen Kaufpreis von {Kaufpreis} €.")
     User_Kisten_hinzufügen(aktueller_benutzer, Eingabe_kiste, Anzahl, Kaufpreis)
-    return render_template("DashboardPage.html")
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis)
 
 def main():
     erstelle_datenbank()
