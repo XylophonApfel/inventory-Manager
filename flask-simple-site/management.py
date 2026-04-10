@@ -330,7 +330,7 @@ def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
     print(f"länge: {len(Abfrage_ob_kiste_vorhanden)}")
     if len(Abfrage_ob_kiste_vorhanden) >= 1:
         aktuelle_anzahl = Datenbank_befhel_ausfuehren(f"SELECT menge FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
-        neue_anzahl = int(aktuelle_anzahl[0][0]) + Anzahl
+        neue_anzahl = int(aktuelle_anzahl[0][0]) + int(Anzahl)
         Datenbank_befhel_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl} WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
         print("Die Kisten wurden geändert")
     else:
