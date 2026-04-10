@@ -326,6 +326,16 @@ def hash(passwort):
 def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
     Benutzer_ID = User_ID_Finden(Benutzer)
     Kiste_ID = Kiste_ID_Finden(Kiste)
+    Abfrage_ob_kiste_vorhanden = Datenbank_befhel_ausfuehren(f"SELECT * FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+    print(f"länge: {len(Abfrage_ob_kiste_vorhanden)}")
+    if len(Abfrage_ob_kiste_vorhanden) >= 1:
+        aktuelle_anzahl = Datenbank_befhel_ausfuehren(f"SELECT menge FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+        neue_anzahl = int(aktuelle_anzahl[0][0]) + Anzahl
+        Datenbank_befhel_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl} WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
+        print("Die Kisten wurden geändert")
+    else:
+        Datenbank_befhel_ausfuehren(f"INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES({Benutzer_ID}, {Kiste_ID}, {Anzahl}, {Kaufpreis});")
+        print("Die Kisten wurden hinzugefügt")
     pass
 
 def User_ID_Finden(Benutzername):
@@ -348,6 +358,7 @@ if __name__ == "__main__":
     #Benutzer_erstellen("Admin1", "Admin123")
     #User_ID_Finden("Aron")
     #Kiste_ID_Finden("eSports 2013 Case")
+    #User_Kisten_hinzufügen("Aron", "Revolution Case", 5, 3.22)
     os.system("cls")
     
     
