@@ -63,7 +63,7 @@ def erstelle_datenbank():
     con.close()
     print("Datenbank und Tabellen wurden erfolgreich initialisiert!")
 
-def Datenbank_befhel_ausfuehren(Befehl):
+def Datenbank_befehl_ausfuehren(Befehl):
     import sqlite3
     con = sqlite3.connect('inventar_manager.db')
 
@@ -89,7 +89,7 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
 
     if wert == 0:
         print("Benutzer anlegen")
-        Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort_Hash}');")
+        Datenbank_befehl_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort_Hash}');")
         return 1
 
     elif wert == 1:
@@ -101,7 +101,7 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
 
 
 def Benutzer_vorhanden(Benutzername):
-    Ergebniss = Datenbank_befhel_ausfuehren("Select benutzername from benutzer;")
+    Ergebniss = Datenbank_befehl_ausfuehren("Select benutzername from benutzer;")
     Liste_Benutzer = []
 
     if Ergebniss is not None:
@@ -122,7 +122,7 @@ def Benutzer_anmelden(Benutzername, Passwort):
     #Passwort_hash = hash(Passwort)
     print(Benutzername)
     try:
-        Ergebniss = Datenbank_befhel_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
+        Ergebniss = Datenbank_befehl_ausfuehren(f"Select passwort_hash From benutzer Where benutzername ='{Benutzername}';")
         print(Ergebniss)
         #print(Passwort_hash)
         if Ergebniss is None or len(Ergebniss) == 0:
@@ -139,12 +139,11 @@ def Benutzer_anmelden(Benutzername, Passwort):
         print(f"Fehler beim Anmelden: {e}")
         return 0
 
-def Inventar_Gesamtwert_berechnen():
-    pass
-
-def Item_Gesamtwert_berechnen(Benutzer_id):
-    Gesamtwert = Datenbank_befhel_ausfuehren(f"Select item_id, menge * kaufpreis_stueck AS Gesamtwert_Item From inventar WHERE benutzer_id = {Benutzer_id}; ")
+def Inventar_Gesamtwert_berechnen(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    Gesamtwert = Datenbank_befehl_ausfuehren(f"SELECT SUM(i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) FROM inventar i WHERE i.benutzer_id = {User_ID};")
     return Gesamtwert
+
 
 def Kisten_In_Datenbanken_anlegen():
 
@@ -202,7 +201,7 @@ def Kisten_In_Datenbanken_anlegen():
 ]
     for i in csgo_cases:
         print(i)
-        Datenbank_befhel_ausfuehren(f"INSERT OR IGNORE INTO gegenstand (name, typ) VALUES('{i}', 'Kiste');")
+        Datenbank_befehl_ausfuehren(f"INSERT OR IGNORE INTO gegenstand (name, typ) VALUES('{i}', 'Kiste');")
 
 
 def Kisten_Preis():
@@ -285,7 +284,7 @@ def Kisten_Preis():
                 print(f"Gefundener Preis bei Steam: {preis_als_zahl}€")
 
                 # 2. ID der Kiste suchen
-                ergebnis = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")
+                ergebnis = Datenbank_befehl_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")
                 
                 if ergebnis:
                     # Die nackte ID aus der Tupel/Listen-Antwort extrahieren
@@ -297,10 +296,10 @@ def Kisten_Preis():
                         id_kiste = ergebnis
                         
                     # Prüfen, ob heute schon ein Preis existiert
-                    check_heute = Datenbank_befhel_ausfuehren(f"SELECT preis_id FROM preis_verlauf WHERE item_id = {id_kiste} AND zeitstempel LIKE '{heute_datum}%';")
+                    check_heute = Datenbank_befehl_ausfuehren(f"SELECT preis_id FROM preis_verlauf WHERE item_id = {id_kiste} AND zeitstempel LIKE '{heute_datum}%';")
                     
                     if not check_heute: # Wenn die Liste leer ist (also noch kein Preis da)
-                        Datenbank_befhel_ausfuehren(f"INSERT INTO preis_verlauf (item_id, preis, zeitstempel) VALUES ({id_kiste}, {preis_als_zahl}, '{zeit_formatiert}');")
+                        Datenbank_befehl_ausfuehren(f"INSERT INTO preis_verlauf (item_id, preis, zeitstempel) VALUES ({id_kiste}, {preis_als_zahl}, '{zeit_formatiert}');")
                         print(f"[{i}] -> NEUER Preis für heute ({heute_datum}) in DB gespeichert!\n")
                     else:
                         print(f"[{i}] -> Übersprungen: Für heute existiert bereits ein Preis!\n")
@@ -326,29 +325,29 @@ def hash(passwort):
 def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
     Benutzer_ID = User_ID_Finden(Benutzer)
     Kiste_ID = Kiste_ID_Finden(Kiste)
-    Abfrage_ob_kiste_vorhanden = Datenbank_befhel_ausfuehren(f"SELECT * FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+    Abfrage_ob_kiste_vorhanden = Datenbank_befehl_ausfuehren(f"SELECT * FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
     print(f"länge: {len(Abfrage_ob_kiste_vorhanden)}")
     if len(Abfrage_ob_kiste_vorhanden) >= 1:
-        aktuelle_anzahl = Datenbank_befhel_ausfuehren(f"SELECT menge FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+        aktuelle_anzahl = Datenbank_befehl_ausfuehren(f"SELECT menge FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
         neue_anzahl = int(aktuelle_anzahl[0][0]) + int(Anzahl)
-        Abfrage_Kaufpreis = Datenbank_befhel_ausfuehren(f"SELECT kaufpreis_stueck FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+        Abfrage_Kaufpreis = Datenbank_befehl_ausfuehren(f"SELECT kaufpreis_stueck FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
         Durchschnitt_Kaufpreis = ((float(Abfrage_Kaufpreis[0][0]) * int(aktuelle_anzahl[0][0])) + (int(Anzahl) * float(Kaufpreis)))/int(neue_anzahl)
         Durchschnitt_Kaufpreis = round(Durchschnitt_Kaufpreis, 2)
         print(Durchschnitt_Kaufpreis)
-        Datenbank_befhel_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl}, kaufpreis_stueck = {Durchschnitt_Kaufpreis}  WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
+        Datenbank_befehl_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl}, kaufpreis_stueck = {Durchschnitt_Kaufpreis}  WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
         print("Die Kisten wurden geändert")
     else:
-        Datenbank_befhel_ausfuehren(f"INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES({Benutzer_ID}, {Kiste_ID}, {Anzahl}, {Kaufpreis});")
+        Datenbank_befehl_ausfuehren(f"INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES({Benutzer_ID}, {Kiste_ID}, {Anzahl}, {Kaufpreis});")
         print("Die Kisten wurden hinzugefügt")
 
 def User_ID_Finden(Benutzername):
-    Benutzer_ID = Datenbank_befhel_ausfuehren(f"SELECT benutzer_id FROM benutzer WHERE benutzername = '{Benutzername}';")
+    Benutzer_ID = Datenbank_befehl_ausfuehren(f"SELECT benutzer_id FROM benutzer WHERE benutzername = '{Benutzername}';")
     Benutzer_ID = Benutzer_ID[0][0]
     print(f"Die Benutzer ID ist {Benutzer_ID}.")
     return Benutzer_ID
 
 def Kiste_ID_Finden(Kiste):
-    Kiste_ID = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{Kiste}';")
+    Kiste_ID = Datenbank_befehl_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{Kiste}';")
     Kiste_ID = Kiste_ID[0][0]
     print(f"Die Kisten ID ist {Kiste_ID}.")
     return Kiste_ID
@@ -363,8 +362,3 @@ if __name__ == "__main__":
     #Kiste_ID_Finden("eSports 2013 Case")
     #User_Kisten_hinzufügen("Aron", "Revolution Case", 5, 3.42)
     os.system("cls")
-    
-    
-    
-    
-
