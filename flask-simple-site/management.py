@@ -323,7 +323,10 @@ def hash(passwort):
     sicherer_hash = generate_password_hash(passwort)
     return sicherer_hash
 
-def User_Kisten_hinzufügen(Kiste, Anzahl):
+def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
+    pass
+
+def User_id_finden():
     pass
 
 if __name__ == "__main__":

@@ -56,7 +56,9 @@ def item_hinzufuegen():
     aktueller_benutzer = session['benutzername']
     Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
     Anzahl = request.form.get("anzahl")
-    print(f"Es werden {Anzahl} {Eingabe_kiste} zu {aktueller_benutzer} hinzugefügt.")
+    Kaufpreis = request.form.get("kaufpreis")
+    print(f"Es werden {Anzahl} {Eingabe_kiste} zu {aktueller_benutzer} hinzugefügt für einen Kaufpreis von {Kaufpreis} €.")
+    User_Kisten_hinzufügen(aktueller_benutzer, Eingabe_kiste, Anzahl, Kaufpreis)
     return render_template("DashboardPage.html")
 
 def main():
