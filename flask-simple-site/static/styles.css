@@ -218,3 +218,18 @@ label1 {
     right: 20px;
 }
 
+/* Container für den Gesamtwert */
+.container2 {
+    width: 20px;
+    max-width: 60px;
+}
+
+.form-container1 {
+    position: relative;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
