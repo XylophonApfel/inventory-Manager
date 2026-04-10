@@ -331,12 +331,15 @@ def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
     if len(Abfrage_ob_kiste_vorhanden) >= 1:
         aktuelle_anzahl = Datenbank_befhel_ausfuehren(f"SELECT menge FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
         neue_anzahl = int(aktuelle_anzahl[0][0]) + int(Anzahl)
-        Datenbank_befhel_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl} WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
+        Abfrage_Kaufpreis = Datenbank_befhel_ausfuehren(f"SELECT kaufpreis_stueck FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+        Durchschnitt_Kaufpreis = ((float(Abfrage_Kaufpreis[0][0]) * int(aktuelle_anzahl[0][0])) + (int(Anzahl) * float(Kaufpreis)))/int(neue_anzahl)
+        Durchschnitt_Kaufpreis = round(Durchschnitt_Kaufpreis, 2)
+        print(Durchschnitt_Kaufpreis)
+        Datenbank_befhel_ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl}, kaufpreis_stueck = {Durchschnitt_Kaufpreis}  WHERE benutzer_id = {Benutzer_ID} and item_id = {Kiste_ID};")
         print("Die Kisten wurden geändert")
     else:
         Datenbank_befhel_ausfuehren(f"INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES({Benutzer_ID}, {Kiste_ID}, {Anzahl}, {Kaufpreis});")
         print("Die Kisten wurden hinzugefügt")
-    pass
 
 def User_ID_Finden(Benutzername):
     Benutzer_ID = Datenbank_befhel_ausfuehren(f"SELECT benutzer_id FROM benutzer WHERE benutzername = '{Benutzername}';")
@@ -358,7 +361,7 @@ if __name__ == "__main__":
     #Benutzer_erstellen("Admin1", "Admin123")
     #User_ID_Finden("Aron")
     #Kiste_ID_Finden("eSports 2013 Case")
-    #User_Kisten_hinzufügen("Aron", "Revolution Case", 5, 3.22)
+    #User_Kisten_hinzufügen("Aron", "Revolution Case", 5, 3.42)
     os.system("cls")
     
     
