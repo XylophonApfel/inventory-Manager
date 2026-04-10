@@ -54,6 +54,7 @@ def logout():
 def item_hinzufuegen():
     # Abfrage wer der Aktuelle Benutzer ist
     aktueller_benutzer = session['benutzername']
+    Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
     Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
     Anzahl = request.form.get("anzahl")
     Kaufpreis = request.form.get("kaufpreis")
