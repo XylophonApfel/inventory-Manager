@@ -4,11 +4,14 @@ from management import *
  
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
- 
+
+#Hier wird die Login/Register-Seite als erste Seite beim Starten aufgerufen
 @app.route("/")
 def startseite():
     return render_template("LogInPage.html")
 
+#Hier wird die abfrage der Login-Daten und die Weiterleitung zum Dashboard geregelt,
+#sowie die Rückkehr zur Login-Seite, wenn die Daten falsch sind
 @app.route("/login", methods=["GET", "POST"])
 def einloggen():
     if request.method == "POST":
@@ -21,6 +24,7 @@ def einloggen():
         
     return render_template("LogInPage.html")
 
+#Hier wird die abfrage der Registrierungs-Daten und die Weiterleitung zum Login geregelt
 @app.route("/register", methods=["GET", "POST"])
 def Registrieren():
     if request.method == "POST":
@@ -32,6 +36,12 @@ def Registrieren():
         if Wert == True:
             return render_template("LogInPage.html")
     return render_template("RegisterPage.html")
+
+#Hier wird der Logout auf dem Dashboard geregelt, damit man sich aus seinem Account ausloggen kann
+@app.route("/logout", methods=["GET"])
+def logout():
+    return render_template("LogInPage.html")
+
 
 @app.route("/item_hinzufuegen", methods=["POST", "GET"])
 def item_hinzufuegen():

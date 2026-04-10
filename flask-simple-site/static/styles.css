@@ -1,7 +1,7 @@
 
 /* Hintergrundbild */
 body {
-    background-image: url('https://th.bing.com/th/id/R.0dfb065940a55a924e3fcf36eda35a41?rik=fj%2bCuw4VMBEy0w&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fGrey-backgrounds-for-desktop.jpg&ehk=ANTIrAd8uD0UwyynKX6fbOZGC2nBgGpgyLc9If9fUsQ%3d&risl=&pid=ImgRaw&r=0');
+    background-image: url('https://4kwallpapers.com/images/wallpapers/modern-blue-waves-1920x1080-24611.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -19,16 +19,6 @@ x {
 /*Login Feld */
 /*Font*/
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4f46e5, #9333ea);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-}
 
 .container {
     width: 100%;
@@ -56,7 +46,7 @@ body {
 }
 
 .input-field {
-    width: 100%;
+    width: 93%;
     padding: 12px 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -88,6 +78,7 @@ body {
 .password-group {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .eye-icon {
@@ -139,6 +130,8 @@ body {
     font-size: 0.9rem;
 }
 
+
+
 h1 {
             font-family: Helvetica, sans-serif;         /* Font style */
             font-size: 36px;                            /* Text size */
@@ -171,5 +164,57 @@ h2 {
 /* Diagramm 1 */
 #D1 {
     background-color: #f0f0f0;
+}
+
+/* Auswahlfeld auf dem Dashboard für die Kistenauswahl */
+.input-field1 {
+    width: 20%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Submit Button Dashboard für die Kistenauswahl */
+.submit-btn1 {
+    width: 20%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 145px;  /* Sorgt dafür das der Button nach links verschoben wird */
+}
+
+/* Logout Button Dashboard */
+.logout-btn {
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: 67px;                          /* Gleiche Höhe wie die h2 – Wert anpassen */
+    right: 20px;                        /* Gleiche Höhe wie die h2 – Wert anpassen */
+}
+
+/* Form für den Gesamtwert des Inventars */
+label1 {
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #16b47f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: 42px;                          /* Gleiche Höhe wie die h2 – Wert anpassen */
+    right: 20px;
 }
 
