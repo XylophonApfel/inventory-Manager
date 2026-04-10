@@ -324,16 +324,33 @@ def hash(passwort):
     return sicherer_hash
 
 def User_Kisten_hinzufügen(Benutzer, Kiste, Anzahl, Kaufpreis):
+    Benutzer_ID = User_ID_Finden(Benutzer)
+    Kiste_ID = Kiste_ID_Finden(Kiste)
     pass
 
-def User_id_finden():
-    pass
+def User_ID_Finden(Benutzername):
+    Benutzer_ID = Datenbank_befhel_ausfuehren(f"SELECT benutzer_id FROM benutzer WHERE benutzername = '{Benutzername}';")
+    Benutzer_ID = Benutzer_ID[0][0]
+    print(f"Die Benutzer ID ist {Benutzer_ID}.")
+    return Benutzer_ID
+
+def Kiste_ID_Finden(Kiste):
+    Kiste_ID = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{Kiste}';")
+    Kiste_ID = Kiste_ID[0][0]
+    print(f"Die Kisten ID ist {Kiste_ID}.")
+    return Kiste_ID
+
 
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
     # Benutzer_anmelden("Test", "123")
+    #Benutzer_erstellen("Admin1", "Admin123")
+    #User_ID_Finden("Aron")
+    #Kiste_ID_Finden("eSports 2013 Case")
     os.system("cls")
-    Benutzer_erstellen("Admin1", "Admin123")
+    
+    
+    
     
 
