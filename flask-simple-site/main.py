@@ -1,9 +1,12 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from management import *
  
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
+
+# Passwort für Session
+app.secret_key = "test"
 
 #Hier wird die Login/Register-Seite als erste Seite beim Starten aufgerufen
 @app.route("/")
@@ -20,6 +23,8 @@ def einloggen():
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
         Wert = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
         if Wert == True:
+            #Benutername Speichern
+            session['benutzername'] = Eingabe_Name
             return render_template("DashboardPage.html")
         
     return render_template("LogInPage.html")
@@ -40,18 +45,23 @@ def Registrieren():
 #Hier wird der Logout auf dem Dashboard geregelt, damit man sich aus seinem Account ausloggen kann
 @app.route("/logout", methods=["GET"])
 def logout():
+    # Session Benutzer löschen
+    session.pop('benutzername', None)
     return render_template("LogInPage.html")
 
 
 @app.route("/item_hinzufuegen", methods=["POST", "GET"])
 def item_hinzufuegen():
-    Eingabe = request.form.get("ausgewaehlte_kiste")
-    print(Eingabe)
+    # Abfrage wer der Aktuelle Benutzer ist
+    aktueller_benutzer = session['benutzername']
+    Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
+    Anzahl = request.form.get("anzahl")
+    print(f"Es werden {Anzahl} {Eingabe_kiste} zu {aktueller_benutzer} hinzugefügt.")
     return render_template("DashboardPage.html")
 
 def main():
     erstelle_datenbank()
-    Kisten_Preis()
+    #Kisten_Preis()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

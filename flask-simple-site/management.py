@@ -323,6 +323,9 @@ def hash(passwort):
     sicherer_hash = generate_password_hash(passwort)
     return sicherer_hash
 
+def User_Kisten_hinzufügen(Kiste, Anzahl):
+    pass
+
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
