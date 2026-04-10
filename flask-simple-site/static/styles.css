@@ -220,12 +220,12 @@ label1 {
 
 /* Container für den Gesamtwert */
 .container1 {
-    width: 20px;
+    width: 60px;
     max-width: 60px;
 }
 
 .form-container1 {
-    position: absolute;
+    position: fixed;
     background: #fff;
     padding: 2rem;
     border-radius: 16px;
@@ -233,13 +233,14 @@ label1 {
     overflow: hidden;
 }
 
+
 .container2 {
-    width: 20px;
+    width: 60px;
     max-width: 60px;
 }
 
 .form-container2 {
-    position: absolute;
+    position: fixed;
     background: #fff;
     padding: 2rem;
     border-radius: 16px;
