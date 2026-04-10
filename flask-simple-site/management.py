@@ -1,6 +1,6 @@
 import sqlite3
 import os
-#import requests
+import requests
 import time
 from datetime import datetime
 from werkzeug.security import generate_password_hash
@@ -205,7 +205,6 @@ def Kisten_In_Datenbanken_anlegen():
         Datenbank_befhel_ausfuehren(f"INSERT OR IGNORE INTO gegenstand (name, typ) VALUES('{i}', 'Kiste');")
 
 
-
 def Kisten_Preis():
     alle_daten = {}
 
@@ -260,10 +259,10 @@ def Kisten_Preis():
     # --- CS2 Ära ---
     "Kilowatt Case",
     "Gallery Case"
-]
+    ]
 
     for i in csgo_cases:
-        print(i)
+        print(f"Lade Daten für: {i}")
         url = f"https://steamcommunity.com/market/priceoverview/?appid=730&currency=3&market_hash_name={i}"
         
         try:
@@ -272,27 +271,49 @@ def Kisten_Preis():
             
             # Prüfen, ob Steam uns den Preis geschickt hat
             if daten.get("success") == True:
-                zeit_formatiert = datetime.now().strftime("%H:%M:%S")
+                # 1. Daten für die Speicherung vorbereiten
+                zeit_formatiert = datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Z.B. 2026-04-10 14:30:00
+                heute_datum = datetime.now().strftime("%Y-%m-%d")               # Z.B. 2026-04-10
+                
                 # Den niedrigsten Preis holen (oder "0,00€" falls er fehlt)
                 roher_preis = daten.get("lowest_price", "0,00€")
                 
                 # Preis sauber machen: € weg, Striche zu Nullen, Komma zu Punkt
                 sauber = roher_preis.replace('€', '').replace('-', '0').replace(',', '.').strip()
                 preis_als_zahl = float(sauber)
-                print(preis_als_zahl)
-                print(zeit_formatiert)
+                
+                print(f"Gefundener Preis bei Steam: {preis_als_zahl}€")
 
-                id_kiste = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")
-                Datenbank_befhel_ausfuehren(f"INSERT OR IGNORE INTO preis_verlauf (item_id, preis, zeitstempel) VALUES('{id_kiste}', '{preis_als_zahl}', '{zeit_formatiert}');")
-                print(f"{i} erledigt\n")
+                # 2. ID der Kiste suchen
+                ergebnis = Datenbank_befhel_ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")
                 
-                
+                if ergebnis:
+                    # Die nackte ID aus der Tupel/Listen-Antwort extrahieren
+                    if isinstance(ergebnis, list) and len(ergebnis) > 0:
+                        id_kiste = ergebnis[0][0]
+                    elif isinstance(ergebnis, tuple):
+                        id_kiste = ergebnis[0]
+                    else:
+                        id_kiste = ergebnis
+                        
+                    # Prüfen, ob heute schon ein Preis existiert
+                    check_heute = Datenbank_befhel_ausfuehren(f"SELECT preis_id FROM preis_verlauf WHERE item_id = {id_kiste} AND zeitstempel LIKE '{heute_datum}%';")
+                    
+                    if not check_heute: # Wenn die Liste leer ist (also noch kein Preis da)
+                        Datenbank_befhel_ausfuehren(f"INSERT INTO preis_verlauf (item_id, preis, zeitstempel) VALUES ({id_kiste}, {preis_als_zahl}, '{zeit_formatiert}');")
+                        print(f"[{i}] -> NEUER Preis für heute ({heute_datum}) in DB gespeichert!\n")
+                    else:
+                        print(f"[{i}] -> Übersprungen: Für heute existiert bereits ein Preis!\n")
+                        
+                else:
+                    print(f"[WARNUNG] Kiste '{i}' existiert noch nicht in der Tabelle 'gegenstand'! Bitte erst anlegen.\n")
+                    
             else:
-                print(f"[FEHLER] Steam hat '{i}' blockiert oder nicht gefunden.")
+                print(f"[FEHLER] Steam hat '{i}' blockiert oder nicht gefunden.\n")
                 alle_daten[i] = 0.00
                 
         except Exception as e:
-            print(f"[NETZWERKFEHLER] Bei {i}: {e}")
+            print(f"[NETZWERKFEHLER] Bei {i}: {e}\n")
             alle_daten[i] = 0.00
 
         # WICHTIG: 2 Sekunden Pause, damit Steam uns nicht wegen Spam blockt!
