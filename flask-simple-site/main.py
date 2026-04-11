@@ -26,7 +26,10 @@ def einloggen():
             #Benutername Speichern
             session['benutzername'] = Eingabe_Name
             Gesamtpreis = Inventar_Gesamtwert_berechnen(session['benutzername'])
-            Gesamtpreis = round(Gesamtpreis[0][0], 2)
+            if Gesamtpreis[0][0] == None:
+                Gesamtpreis = 0.00
+            else:
+                Gesamtpreis = round(Gesamtpreis[0][0], 2)
             print(f"Gesamtpreis: {Gesamtpreis}")
             return render_template("DashboardPage.html", gesamtwert=Gesamtpreis)
         
@@ -60,7 +63,10 @@ def item_hinzufuegen():
     # Abfrage wer der Aktuelle Benutzer ist
     aktueller_benutzer = session['benutzername']
     Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
-    Gesamtpreis = round(Gesamtpreis[0][0], 2)
+    if Gesamtpreis[0][0] == None:
+        Gesamtpreis = 0.00
+    else:
+        Gesamtpreis = round(Gesamtpreis[0][0], 2)
     print(f"Gesamtpreis: {Gesamtpreis}")
     Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
     Anzahl = request.form.get("anzahl")
@@ -71,7 +77,7 @@ def item_hinzufuegen():
 
 def main():
     erstelle_datenbank()
-    #Kisten_Preis()
+    Kisten_Preis()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
