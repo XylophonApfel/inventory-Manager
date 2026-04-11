@@ -90,13 +90,18 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     if wert == 0:
         print("Benutzer anlegen")
         Datenbank_befehl_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('{Benutzername}','{Passwort_Hash}');")
-        return 1
+        Fehler = ""
+        return 1, Fehler
 
     elif wert == 1:
         print("Benutzer bereits vorhanden!")
+        Fehler = "Benutzer bereits vorhanden!"
+        return 0, Fehler
     
     elif wert == 2:
         print("Passwort ist nicht gleich!")
+        Fehler = "Passwort ist nicht gleich!"
+        return 0, Fehler
 
 
 
@@ -127,14 +132,17 @@ def Benutzer_anmelden(Benutzername, Passwort):
         #print(Passwort_hash)
         if Ergebniss is None or len(Ergebniss) == 0:
             print("Bitte geben Sie einen gültigen Benutzernamen ein!")
-            return 0
+            Fehler = "Bitte geben Sie einen gültigen Benutzernamen ein!"
+            return 0, Fehler
         print(f"Gefundenes Passwort-Hash: {Ergebniss[0][0]}")
         if check_password_hash(Ergebniss[0][0], Passwort):
             print("Richtig!")
-            return 1
+            Fehler= ""
+            return 1, Fehler
         else:
             print("Bitte geben Sie ein gültiges Passwort ein!")
-            return 0
+            Fehler = "Bitte geben Sie ein gültiges Passwort ein!"
+            return 0, Fehler  
     except Exception as e:
         print(f"Fehler beim Anmelden: {e}")
         return 0

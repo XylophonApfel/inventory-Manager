@@ -28,6 +28,12 @@
         <!-- Form -->
         <form class="form-box" action="/login" method="POST">
 
+            {% if fehlermeldung %}
+                <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px; background-color: #ffe6e6; padding: 10px; border-radius: 5px;">
+                    {{ fehlermeldung }}
+                </div>
+            {% endif %}
+
             <!-- Username -->
             <div class="input-group">
                 <input type="text" name="benutzername" id="email" class="input-field" required>

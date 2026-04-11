@@ -21,7 +21,7 @@ def einloggen():
         Eingabe_Name = request.form.get("benutzername")
         Eingabe_Passwort = request.form.get("passwort")
         print(f"Veruschte Anmeldung von {Eingabe_Name}")
-        Wert = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
+        Wert, Fehler = Benutzer_anmelden(Eingabe_Name, Eingabe_Passwort)
         if Wert == True:
             #Benutername Speichern
             session['benutzername'] = Eingabe_Name
@@ -30,7 +30,7 @@ def einloggen():
             print(f"Gesamtpreis: {Gesamtpreis}")
             return render_template("DashboardPage.html", gesamtwert=Gesamtpreis)
         
-    return render_template("LogInPage.html")
+    return render_template("LogInPage.html", fehlermeldung=Fehler)
 
 #Hier wird die abfrage der Registrierungs-Daten und die Weiterleitung zum Login geregelt
 @app.route("/register", methods=["GET", "POST"])
@@ -40,9 +40,11 @@ def Registrieren():
         Eingabe_Passwort = request.form.get("passwort")
         Eingabe_Passwort_confirm = request.form.get("passwort_confirm")
         print(f"Veruschte Registrierung von {Eingabe_Name}")
-        Wert = Benutzer_erstellen(Eingabe_Name, Eingabe_Passwort, Eingabe_Passwort_confirm)
+        Wert, Fehler = Benutzer_erstellen(Eingabe_Name, Eingabe_Passwort, Eingabe_Passwort_confirm)
         if Wert == True:
             return render_template("LogInPage.html")
+        else:
+            return render_template("RegisterPage.html", fehlermeldung=Fehler)
     return render_template("RegisterPage.html")
 
 #Hier wird der Logout auf dem Dashboard geregelt, damit man sich aus seinem Account ausloggen kann
