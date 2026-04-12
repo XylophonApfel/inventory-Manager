@@ -160,17 +160,29 @@ def Gesamtausgaben_berechnen(Benutzername):
 def Gewinn_Verlust(Benutzername):
     Gesamtwert = Inventar_Gesamtwert_berechnen(Benutzername)
     Gesamtwert = Gesamtwert[0][0]
+    if Gesamtwert == None:
+        Gesamtwert = 0
     Gesamtausgaben = Gesamtausgaben_berechnen(Benutzername)
     Gesamtausgaben = Gesamtausgaben[0][0]
+    if Gesamtausgaben == None:
+        Gesamtausgaben = 0
     Berechnung = float(Gesamtwert) - float(Gesamtausgaben)
     return Berechnung
 
 def Gewinn_Verlust_Prozent(Benutzername):
     Gesamtwert = Inventar_Gesamtwert_berechnen(Benutzername)
     Gesamtwert = Gesamtwert[0][0]
+    if Gesamtwert == None:
+        Gesamtwert = 0
     Gesamtausgaben = Gesamtausgaben_berechnen(Benutzername)
     Gesamtausgaben = Gesamtausgaben[0][0]
-    Prozent = ((Gesamtwert - Gesamtausgaben) / Gesamtausgaben) * 100
+    if Gesamtausgaben == None:
+        Gesamtausgaben = 0
+    if Gesamtwert == 0:
+        if Gesamtausgaben == 0:
+            Prozent = 0
+    else:
+        Prozent = ((Gesamtwert - Gesamtausgaben) / Gesamtausgaben) * 100
     return Prozent
 
 def User_Inventar_abrufen(Benutzername):
@@ -390,7 +402,7 @@ def Gesamtanzahl_Items(Benutzername):
     Gesamtanzahl = Datenbank_befehl_ausfuehren(f"SELECT SUM(menge) AS 'Gesamtanzahl' From inventar WHERE benutzer_id = {User_ID};")
     return Gesamtanzahl
 
-def User_Item_loeschen(Benutzername, Kisten_name, Kaufpreis):
+def User_Item_loeschen(Benutzername, Kisten_name):
     User_ID = User_ID_Finden(Benutzername)
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
     Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID};")
