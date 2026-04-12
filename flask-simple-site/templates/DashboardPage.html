@@ -38,7 +38,7 @@
 
   <div class="card card-gesamtwert">
     <div>
-      <div class="card-label">Gesamtwert</div>
+      <div class="card-label">Gesamtwert des Inventars</div>
       <div class="card-value">{{gesamtwert}} €</div>
     </div>
     <div class="card-icon">$</div>
@@ -46,7 +46,7 @@
 
   <div class="card card-anzahl">
     <div>
-      <div class="card-label">Anzahl Items</div>
+      <div class="card-label">Anzahl der Kisten</div>
       <div class="card-value">{{gesamt_items}}</div>
     </div>
     <div class="card-icon">📦</div>
@@ -54,7 +54,7 @@
 
   <div class="card card-gewinn">
     <div>
-      <div class="card-label">Gesamtgewinn/verlust</div>
+      <div class="card-label">Gewninn / Verlust nach abzug der Kaufkosten</div>
       <div class="card-value">{{gewinn}} €</div>
     </div>
     <div class="card-icon">↗</div>
@@ -145,7 +145,7 @@
     <label for="anzahl" style="padding:8px;"> Bitte die Anzahl der Kisten wählen: </label>
     <input type="number" id="anzahl" name="anzahl" min="1" max="9999" step="1" value="1">
 
-    
+
     <label for="kaufpreis"> Bitte den Kaufpreis in Euro wählen: </label>
     <input type="number" id="kaufpreis" name="kaufpreis" min="0.01" max="9999" step="0.01" value="1.00">
 
@@ -189,7 +189,7 @@
         </ul>
     {% else %}
         <p style="text-align: center; color: gray; font-style: italic; background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px dashed #ccc;">
-            Dein Rucksack ist aktuell noch leer. Füge oben Kisten hinzu!
+            Dein Inventar ist aktuell noch leer. Füge oben Kisten hinzu!
         </p>
     {% endif %}
 </div>
