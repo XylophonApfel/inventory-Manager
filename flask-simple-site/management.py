@@ -393,7 +393,7 @@ def Gesamtanzahl_Items(Benutzername):
 def User_Item_loeschen(Benutzername, Kisten_name, Kaufpreis):
     User_ID = User_ID_Finden(Benutzername)
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
-    Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID} AND kaufpreis_stueck = {Kaufpreis};")
+    Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID};")
 
 
 if __name__ == "__main__":
