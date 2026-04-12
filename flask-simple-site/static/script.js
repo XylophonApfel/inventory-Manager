@@ -4,26 +4,26 @@
 
 const datensaetze = {
   kisten: {
-    label: 'Umsätze durch Kisten',
+    label: 'Anzahl der Kisten',
     data: [1, 20, 60, 140, 190, 300, 250],
     borderColor: '#9C27B0',
     backgroundColor: 'rgba(156, 39, 176, 0.1)',
   },
-  gewinn: {
-    label: 'Gesamtgewinn',
+  gesamtwert: {
+    label: 'Gesamtwert des Inventars',
     data: [10, 40, 80, 110, 160, 210, 190],
     borderColor: '#4CAF50',
     backgroundColor: 'rgba(76, 175, 80, 0.1)',
   },
-  umsatz: {
-    label: 'Gesamtumsatz',
+  test: {
+    label: 'Test',
     data: [50, 90, 130, 200, 250, 320, 310],
     borderColor: '#2196F3',
     backgroundColor: 'rgba(33, 150, 243, 0.1)',
   },
-  performance: {
-    label: 'Performance (%)',
-    data: [5, 12, 18, 25, 30, 42, 38],
+  test1: {
+    label: 'test',
+    data: [500, 90, 1300, 200, 2500, 320, 3100],
     borderColor: '#FF5722',
     backgroundColor: 'rgba(255, 87, 34, 0.1)',
   }

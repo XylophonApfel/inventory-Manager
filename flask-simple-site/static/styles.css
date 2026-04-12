@@ -162,10 +162,22 @@ h2 {
         }
 
 /* Diagramm 1 */
-#D1 {
-    background-color: #f0f0f0;
+.chart-btn1 {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2196F3;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 8px;
 }
 
+.chart-btn1:hover {
+  background-color: #1976D2;
+}
 /* Auswahlfeld auf dem Dashboard für die Kistenauswahl */
 .input-field1 {
     width: 20%;
