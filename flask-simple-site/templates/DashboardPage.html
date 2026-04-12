@@ -145,25 +145,44 @@
 
 </form>
 
-<div class="inventory-list-wrapper" style="margin-top: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-    <h3 style="text-align: center; color: #333;">Aktuelles Inventar</h3>
+<div class="inventory-list-wrapper" style="margin-top: 40px; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 20px;">
+    <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Aktuelles Inventar</h3>
     
     {% if inv_liste %}
         <ul style="list-style-type: none; padding: 0;">
         {% for kiste in inv_liste %}
-            <li style="background-color: #f9f9f9; margin-bottom: 10px; padding: 15px 20px; border-radius: 8px; display: flex; justify-content: space-between; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <li style="background-color: #f9f9f9; margin-bottom: 10px; padding: 15px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                 
-                <strong style="color: #2c3e50;">{{ kiste[0] }}</strong> 
-                <span style="font-weight: bold; color: #007bff;">{{ kiste[1] }} Stück</span>
+                <div style="flex: 2; text-align: left;">
+                    <strong style="color: #2c3e50; font-size: 1.1rem;">{{ kiste[0] }}</strong> 
+                </div>
+
+                <div style="flex: 1; text-align: center;">
+                    <span style="font-weight: bold; color: #007bff; background-color: #e6f2ff; padding: 5px 10px; border-radius: 5px;">{{ kiste[1] }} Stück</span>
+                </div>
+
+                <div style="flex: 1; text-align: center;">
+                    <span style="color: #666; font-weight: bold;">Kaufpreis: <span style="color: #28a745;">{{ kiste[2] }} €</span></span>
+                </div>
+
+                <div style="flex: 0.5; text-align: right;">
+                    <form action="/item_loeschen" method="POST" style="margin: 0;">
+                        <input type="hidden" name="kisten_name" value="{{ kiste[0] }}">
+                        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #e74c3c; transition: transform 0.2s;" title="Position löschen" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                            🗑️
+                        </button>
+                    </form>
+                </div>
                 
             </li>
         {% endfor %}
         </ul>
     {% else %}
-        <p style="text-align: center; color: gray; font-style: italic;">Dein Rucksack ist aktuell noch leer.</p>
+        <p style="text-align: center; color: gray; font-style: italic; background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px dashed #ccc;">
+            Dein Rucksack ist aktuell noch leer. Füge oben Kisten hinzu!
+        </p>
     {% endif %}
 </div>
 
 </body>
-
 </html>

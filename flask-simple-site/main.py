@@ -137,11 +137,43 @@ def item_loeschen():
     kisten_name = request.form.get("kisten_name")
     aktueller_benutzer = session['benutzername']
     
+    # Berechnung Gesamtpreis
+    Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
+    if Gesamtpreis[0][0] == None:
+        Gesamtpreis = 0.00
+    else:
+        Gesamtpreis = round(Gesamtpreis[0][0], 2)
+    print(f"Gesamtpreis: {Gesamtpreis}")
+    
+    # Gesamtanzahl Items berechnen
+    Gesamtanzahl = Gesamtanzahl_Items(aktueller_benutzer)
+    Gesamtanzahl = Gesamtanzahl[0][0]
+    if Gesamtanzahl == None:
+        Gesamtanzahl = 0
+    
+    # Gewinn/Verlust berechnen
+    Performance = Gewinn_Verlust(aktueller_benutzer)
+    if Performance == None:
+        Performance = 0.00
+    
+    # Gewinn/Verlust in Prozent
+    Performance_prozent = Gewinn_Verlust_Prozent(aktueller_benutzer)
+    if Performance_prozent == None:
+        Performance_prozent = 0
+    else: 
+        Performance_prozent = round(Performance_prozent,2 )
+
+    # Auflistung Kisten
+    inventar_liste = User_Inventar_abrufen(session['benutzername'])
+    if inventar_liste == None:
+        inventar_liste = [("Keine Kisten", 0)]
+    
     # Funktion zum Löschen aufrufen
     User_Item_loeschen(aktueller_benutzer, kisten_name)
     
     # Zurück zum Dashboard (die Liste aktualisiert sich dann automatisch)
-    return redirect(url_for('dashboard'))
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
+
 
 def main():
     erstelle_datenbank()
