@@ -390,6 +390,12 @@ def Gesamtanzahl_Items(Benutzername):
     Gesamtanzahl = Datenbank_befehl_ausfuehren(f"SELECT SUM(menge) AS 'Gesamtanzahl' From inventar WHERE benutzer_id = {User_ID};")
     return Gesamtanzahl
 
+def User_Item_loeschen(Benutzername, Kisten_name)
+    User_ID = User_ID_Finden(Benutzername)
+    Kisten_ID = Kiste_ID_Finden(Kisten_name)
+    Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID};")
+    
+
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
     # print(Datenbank_befhel_ausfuehren("Select benutzername, passwort_hash From benutzer;"))
