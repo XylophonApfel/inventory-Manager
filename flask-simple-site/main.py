@@ -52,7 +52,12 @@ def einloggen():
             else: 
                 Performance_prozent = round(Performance_prozent,2 )
             
-            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent)
+            # Auflistung Kisten
+            inventar_liste = User_Inventar_abrufen(session['benutzername'])
+            if inventar_liste == None:
+                inventar_liste = [("Keine Kisten", 0)]
+            
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
         
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
@@ -117,7 +122,12 @@ def item_hinzufuegen():
     else: 
         Performance_prozent = round(Performance_prozent,2 )
 
-    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent)
+    # Auflistung Kisten
+    inventar_liste = User_Inventar_abrufen(session['benutzername'])
+    if inventar_liste == None:
+        inventar_liste = [("Keine Kisten", 0)]
+    
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
 
 def main():
     erstelle_datenbank()

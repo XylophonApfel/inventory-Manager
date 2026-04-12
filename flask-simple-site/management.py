@@ -173,6 +173,10 @@ def Gewinn_Verlust_Prozent(Benutzername):
     Prozent = ((Gesamtwert - Gesamtausgaben) / Gesamtausgaben) * 100
     return Prozent
 
+def User_Inventar_abrufen(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    Ergebnis = Datenbank_befehl_ausfuehren(f"SELECT g.name, i.menge FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = {User_ID} ORDER BY i.menge DESC;")
+    return Ergebnis
 
 def Kisten_In_Datenbanken_anlegen():
 
