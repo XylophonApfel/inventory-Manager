@@ -55,7 +55,7 @@ def einloggen():
             # Auflistung Kisten
             inventar_liste = User_Inventar_abrufen(session['benutzername'])
             if inventar_liste == None:
-                inventar_liste = [("Keine Kisten", 0)]
+                inventar_liste = [("Keine Kisten", 0, 0.00)]
             
             return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
         
@@ -136,7 +136,7 @@ def item_loeschen():
     
     kisten_name = request.form.get("kisten_name")
     aktueller_benutzer = session['benutzername']
-    
+
     # Berechnung Gesamtpreis
     Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
     if Gesamtpreis[0][0] == None:

@@ -175,7 +175,7 @@ def Gewinn_Verlust_Prozent(Benutzername):
 
 def User_Inventar_abrufen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Ergebnis = Datenbank_befehl_ausfuehren(f"SELECT g.name, i.menge FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = {User_ID} ORDER BY i.menge DESC;")
+    Ergebnis = Datenbank_befehl_ausfuehren(f"SELECT g.name, i.menge, i.kaufpreis_stueck FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = {User_ID} ORDER BY i.menge DESC;")
     return Ergebnis
 
 def Kisten_In_Datenbanken_anlegen():
@@ -390,10 +390,10 @@ def Gesamtanzahl_Items(Benutzername):
     Gesamtanzahl = Datenbank_befehl_ausfuehren(f"SELECT SUM(menge) AS 'Gesamtanzahl' From inventar WHERE benutzer_id = {User_ID};")
     return Gesamtanzahl
 
-def User_Item_loeschen(Benutzername, Kisten_name):
+def User_Item_loeschen(Benutzername, Kisten_name, Kaufpreis):
     User_ID = User_ID_Finden(Benutzername)
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
-    Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID};")
+    Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID} AND kaufpreis_stueck = {Kaufpreis};")
 
 
 if __name__ == "__main__":
