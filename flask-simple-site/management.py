@@ -165,6 +165,14 @@ def Gewinn_Verlust(Benutzername):
     Berechnung = float(Gesamtwert) - float(Gesamtausgaben)
     return Berechnung
 
+def Gewinn_Verlust_Prozent(Benutzername):
+    Gesamtwert = Inventar_Gesamtwert_berechnen(Benutzername)
+    Gesamtwert = Gesamtwert[0][0]
+    Gesamtausgaben = Gesamtausgaben_berechnen(Benutzername)
+    Gesamtausgaben = Gesamtausgaben[0][0]
+    Prozent = ((Gesamtwert - Gesamtausgaben) / Gesamtausgaben) * 100
+    return Prozent
+
 
 def Kisten_In_Datenbanken_anlegen():
 

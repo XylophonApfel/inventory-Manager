@@ -45,7 +45,14 @@ def einloggen():
             if Performance == None:
                 Performance = 0.00
             
-            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2))
+            # Gewinn/Verlust in Prozent
+            Performance_prozent = Gewinn_Verlust_Prozent(session['benutzername'])
+            if Performance_prozent == None:
+                Performance_prozent = 0
+            else: 
+                Performance_prozent = round(Performance_prozent,2 )
+            
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent)
         
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
@@ -93,17 +100,24 @@ def item_hinzufuegen():
     User_Kisten_hinzufügen(aktueller_benutzer, Eingabe_kiste, Anzahl, Kaufpreis)
 
     # Gesamtanzahl Items berechnen
-    Gesamtanzahl = Gesamtanzahl_Items(session['benutzername'])
+    Gesamtanzahl = Gesamtanzahl_Items(aktueller_benutzer)
     Gesamtanzahl = Gesamtanzahl[0][0]
     if Gesamtanzahl == None:
         Gesamtanzahl = 0
     
     # Gewinn/Verlust berechnen
-    Performance = Gewinn_Verlust(session['benutzername'])
+    Performance = Gewinn_Verlust(aktueller_benutzer)
     if Performance == None:
         Performance = 0.00
     
-    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2))
+    # Gewinn/Verlust in Prozent
+    Performance_prozent = Gewinn_Verlust_Prozent(aktueller_benutzer)
+    if Performance_prozent == None:
+        Performance_prozent = 0
+    else: 
+        Performance_prozent = round(Performance_prozent,2 )
+
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent)
 
 def main():
     erstelle_datenbank()
