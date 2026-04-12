@@ -38,10 +38,10 @@ const ctx = document.getElementById('D1').getContext('2d');
 const diagramm = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul'],
+    labels: ECHTE_LABELS, // Benutzt die Daten aus Python
     datasets: [{
-      label: datensaetze.kisten.label,
-      data: datensaetze.kisten.data,
+      label: 'Gesamtwert Portfolio',
+      data: ECHTE_DATEN,   // Benutzt die Daten aus Pyth
       borderColor: datensaetze.kisten.borderColor,
       backgroundColor: datensaetze.kisten.backgroundColor,
       borderWidth: 2,

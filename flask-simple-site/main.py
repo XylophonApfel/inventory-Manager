@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template, request, session, redirect, url_for
 from management import *
  
@@ -56,8 +57,10 @@ def einloggen():
             inventar_liste = User_Inventar_abrufen(session['benutzername'])
             if inventar_liste == None:
                 inventar_liste = [("Keine Kisten", 0, 0.00)]
+
+            labels, werte = Portfolio_Historie_berechnen(session['benutzername'])
             
-            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste, chart_labels=json.dumps(labels),chart_data=json.dumps(werte))
         
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
@@ -126,8 +129,10 @@ def item_hinzufuegen():
     inventar_liste = User_Inventar_abrufen(session['benutzername'])
     if inventar_liste == None:
         inventar_liste = [("Keine Kisten", 0)]
-    
-    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
+
+    labels, werte = Portfolio_Historie_berechnen(session['benutzername'])
+
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste, chart_labels=json.dumps(labels),chart_data=json.dumps(werte))
 
 @app.route("/item_loeschen", methods=["POST"])
 def item_loeschen():
@@ -170,9 +175,11 @@ def item_loeschen():
     
     # Funktion zum Löschen aufrufen
     User_Item_loeschen(aktueller_benutzer, kisten_name)
-    
+
+    labels, werte = Portfolio_Historie_berechnen(session['benutzername'])
+
     # Zurück zum Dashboard (die Liste aktualisiert sich dann automatisch)
-    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste, chart_labels=json.dumps(labels),chart_data=json.dumps(werte))
 
 
 def main():

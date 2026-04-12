@@ -7,6 +7,12 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        const ECHTE_LABELS = {{ chart_labels | safe }}; 
+        const ECHTE_DATEN = {{ chart_data | safe }}; 
+    </script>
+    
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 
@@ -69,13 +75,13 @@
 
 <div class="chart-wrapper">
   <div class="chart-header">
-    <div class="chart-title">Statistik</div>
-    <select class="chart-dropdown" id="chart-select">
+    <div class="chart-title">Inventarentwicklung</div>
+    <!--<select class="chart-dropdown" id="chart-select">
       <option value="kisten">Anzahl der Kisten</option>
       <option value="gesamtwert">Gesamtwert</option>
       <option value="test">Test</option>
       <option value="test1">Test1</option>
-    </select>
+    </select>-->
   </div>
   <div class="chart-canvas-wrapper">
     <canvas id="D1"></canvas>

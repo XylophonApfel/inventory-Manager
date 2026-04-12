@@ -407,6 +407,33 @@ def User_Item_loeschen(Benutzername, Kisten_name):
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
     Datenbank_befehl_ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} and item_id = {Kisten_ID};")
 
+def Portfolio_Historie_berechnen(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    
+    # Wir holen uns die letzten 7 Tage, an denen Preise gespeichert wurden
+    # Wir gruppieren nach dem Datum (Tag), um pro Tag nur einen Wert zu haben
+    Befehl = f"""
+        SELECT DATE(p.zeitstempel) as tag, SUM(i.menge * p.preis) as gesamt_wert
+        FROM inventar i
+        JOIN preis_verlauf p ON i.item_id = p.item_id
+        WHERE i.benutzer_id = {User_ID}
+        GROUP BY tag
+        ORDER BY tag ASC
+        LIMIT 7;
+    """
+    
+    Ergebnis = Datenbank_befehl_ausfuehren(Befehl)
+    
+    # Wir bereiten die Daten für JavaScript vor (Labels und Werte getrennt)
+    labels = []
+    werte = []
+    
+    if Ergebnis:
+        for zeile in Ergebnis:
+            labels.append(zeile[0]) # Das Datum (z.B. 2026-04-10)
+            werte.append(round(zeile[1], 2)) # Der Gesamtwert an dem Tag
+            
+    return labels, werte
 
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")
