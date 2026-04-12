@@ -45,7 +45,7 @@ def einloggen():
             if Performance == None:
                 Performance = 0.00
             
-            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=Performance)
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2))
         
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
