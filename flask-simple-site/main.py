@@ -129,6 +129,20 @@ def item_hinzufuegen():
     
     return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=round(Performance, 2), gewinn_prozent=Performance_prozent, inv_liste=inventar_liste)
 
+@app.route("/item_loeschen", methods=["POST"])
+def item_loeschen():
+    if 'benutzername' not in session:
+        return redirect(url_for('login'))
+    
+    kisten_name = request.form.get("kisten_name")
+    aktueller_benutzer = session['benutzername']
+    
+    # Funktion zum Löschen aufrufen
+    User_Item_loeschen(aktueller_benutzer, kisten_name)
+    
+    # Zurück zum Dashboard (die Liste aktualisiert sich dann automatisch)
+    return redirect(url_for('dashboard'))
+
 def main():
     erstelle_datenbank()
     #Kisten_Preis()
