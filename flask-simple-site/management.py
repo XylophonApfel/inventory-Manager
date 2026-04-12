@@ -222,17 +222,18 @@ def Dashboard_Werte_abrufen(Benutzername):
 # ==========================================
 
 csgo_cases = [
-    "CS:GO Weapon Case", "CS:GO Weapon Case 2", "CS:GO Weapon Case 3", "Winter Offensive Weapon Case",
-    "eSports 2013 Case", "eSports 2013 Winter Case", "eSports 2014 Summer Case",
-    "Operation Bravo Case", "Operation Phoenix Weapon Case", "Operation Breakout Weapon Case", 
-    "Operation Vanguard Weapon Case", "Operation Wildfire Case", "Operation Hydra Case", 
-    "Shattered Web Case", "Operation Broken Fang Case", "Operation Riptide Case",
-    "Huntsman Weapon Case", "Chroma Case", "Chroma 2 Case", "Chroma 3 Case", "Falchion Case", 
-    "Shadow Case", "Revolver Case", "Gamma Case", "Gamma 2 Case", "Glove Case", 
-    "Spectrum Case", "Spectrum 2 Case", "Clutch Case", "Horizon Case", "Danger Zone Case", 
-    "Prisma Case", "CS20 Case", "Prisma 2 Case", "Fracture Case", "Snakebite Case", 
-    "Dreams & Nightmares Case", "Recoil Case", "Revolution Case",
-    "Kilowatt Case", "Gallery Case"
+    "Chroma Case", "Chroma 2 Case", "Chroma 3 Case", "Clutch Case", 
+    "CS20 Case", "CS:GO Weapon Case", "CS:GO Weapon Case 2", "CS:GO Weapon Case 3", 
+    "Danger Zone Case", "Dreams & Nightmares Case", "eSports 2013 Case", 
+    "eSports 2013 Winter Case", "eSports 2014 Summer Case", "Falchion Case", 
+    "Fracture Case", "Gallery Case", "Gamma Case", "Gamma 2 Case", 
+    "Glove Case", "Horizon Case", "Huntsman Weapon Case", "Kilowatt Case", 
+    "Operation Bravo Case", "Operation Breakout Weapon Case", "Operation Broken Fang Case", 
+    "Operation Hydra Case", "Operation Phoenix Weapon Case", "Operation Riptide Case", 
+    "Operation Vanguard Weapon Case", "Operation Wildfire Case", "Prisma Case", 
+    "Prisma 2 Case", "Recoil Case", "Revolution Case", "Revolver Case", 
+    "Shadow Case", "Shattered Web Case", "Snakebite Case", "Spectrum Case", 
+    "Spectrum 2 Case", "Winter Offensive Weapon Case"
 ]
 
 def Kisten_In_Datenbanken_anlegen():
