@@ -27,7 +27,63 @@
 <br>
 </center>
 
+<!-- Container/Felder für Gesamtwert anzeigen -->
+<div class="dashboard-wrapper">
 
+  <div class="card card-gesamtwert">
+    <div>
+      <div class="card-label">Gesamtwert</div>
+      <div class="card-value">{{gesamtwert}}</div>
+    </div>
+    <div class="card-icon">$</div>
+  </div>
+
+  <div class="card card-anzahl">
+    <div>
+      <div class="card-label">Anzahl Items</div>
+      <div class="card-value">{{anzahl}}</div>
+    </div>
+    <div class="card-icon">📦</div>
+  </div>
+
+  <div class="card card-gewinn">
+    <div>
+      <div class="card-label">Gesamtgewinn</div>
+      <div class="card-value">{{gewinn}}</div>
+    </div>
+    <div class="card-icon">↗</div>
+  </div>
+
+  <div class="card card-performance">
+    <div>
+      <div class="card-label">Performance</div>
+      <div class="card-value">{{performance}}</div>
+    </div>
+    <div class="card-icon">〜</div>
+  </div>
+
+</div>
+
+<!-- Diagramm -->
+<link rel="stylesheet" href="chart.css">
+
+<div class="chart-wrapper">
+  <div class="chart-header">
+    <div class="chart-title">Statistik</div>
+    <select class="chart-dropdown" id="chart-select">
+      <option value="kisten">Umsätze durch Kisten</option>
+      <option value="gewinn">Gesamtgewinn</option>
+      <option value="umsatz">Gesamtumsatz</option>
+      <option value="performance">Performance</option>
+    </select>
+  </div>
+  <div class="chart-canvas-wrapper">
+    <canvas id="D1"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="diagramm.js"></script>
 
 <!-- Dropdown Menu für Kisten -->
 <form action="/item_hinzufuegen" method="POST">
@@ -87,41 +143,6 @@
     <button align="left" type="submit" class="submit-btn1">Im Diagramm Anzeigen lassen</button>
 
 </form>
-
-<!-- Container/Felder für Gesamtwert anzeigen -->
-<br>
-<div style="display: flex; gap: 100px;">
-
-  <div class="container1" style="flex: 1;">
-    <div class="form-container1">
-      <!-- Gesamtwert des Inventar -->
-      <center><div class="label1"> Gesamtwert in Euro </div></center>
-      <br>
-      <span><center> {{gesamtwert}} </center></span>
-    </div>
-  </div>
-
-  <div class="container1" style="flex: 1;">
-    <div class="form-container2">
-      <center><div class="label1"> Test </div></center>
-      <br>
-      <span><center> Test </center></span>
-    </div>
-  </div>
-
-  <div class="container1" style="flex: 1;">
-    <div class="form-container2">
-      <center><div class="label1"> Test </div></center>
-      <br>
-      <span><center> Test </center></span>
-    </div>
-  </div>
-</div>
-
-
-<!-- Diagramm -->
-<!--<canvas align="left" id="D1" width="500" height="200"></canvas>
-<br>-->
 
 
 

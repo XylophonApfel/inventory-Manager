@@ -229,7 +229,7 @@ label1 {
     background: #fff;
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgb(255, 255, 255);
     overflow: hidden;
 }
 
@@ -244,7 +244,148 @@ label1 {
     background: #fff;
     padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.151);
     overflow: hidden;
+}
+
+
+/* ===========================
+   Dashboard Cards Layout
+   =========================== */
+ 
+.dashboard-wrapper {
+  display: flex;          /* ← das ist entscheidend! */
+  flex-direction: row;    /* ← nebeneinander (ist Standard, aber zur Sicherheit) */
+  gap: 16px;
+  padding: 20px;
+  background-color: transparent;
+}
+ 
+/* ===========================
+   Einzelne Karte
+   =========================== */
+ 
+.card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+ 
+/* ===========================
+   Text innerhalb der Karte
+   =========================== */
+ 
+.card-label {
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 8px;
+}
+ 
+.card-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a2035;
+}
+ 
+/* ===========================
+   Icon innerhalb der Karte
+   =========================== */
+ 
+.card-icon {
+  font-size: 28px;
+}
+ 
+/* ===========================
+   Farb-Varianten pro Karte
+   =========================== */
+ 
+/* Gesamtwert – Blau */
+.card-gesamtwert .card-icon,
+.card-gesamtwert .card-value {
+  color: #2196F3;
+}
+ 
+/* Anzahl Items – Lila */
+.card-anzahl .card-icon,
+.card-anzahl .card-value {
+  color: #9C27B0;
+}
+ 
+/* Gesamtgewinn – Grün */
+.card-gewinn .card-icon,
+.card-gewinn .card-value {
+  color: #4CAF50;
+}
+ 
+/* Performance – Orange */
+.card-performance .card-icon,
+.card-performance .card-value {
+  color: #FF5722;
+}
+
+/* ===========================
+   Diagramm Container
+   =========================== */
+ 
+.chart-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px 20px;
+}
+ 
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+ 
+.chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2035;
+}
+ 
+/* ===========================
+   Dropdown
+   =========================== */
+ 
+.chart-dropdown {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  font-size: 13px;
+  color: #1a2035;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+ 
+.chart-dropdown:hover,
+.chart-dropdown:focus {
+  border-color: #2196F3;
+}
+ 
+/* ===========================
+   Canvas
+   =========================== */
+ 
+.chart-canvas-wrapper {
+  position: relative;
+  height: 300px;
 }
 
