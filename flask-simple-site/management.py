@@ -248,7 +248,7 @@ def Kisten_Preis():
             antwort = requests.get(url).json()
             if antwort.get("success") == True:
                 preis = float(antwort.get("lowest_price", "0,00€").replace('€', '').replace('-', '0').replace(',', '.').strip())
-                id_kiste = Datenbank_Befehl_Ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{i}';")[0][0]
+                id_kiste = Kiste_ID_Finden(i)
                 heute = datetime.now().strftime("%Y-%m-%d")
                 
                 check = Datenbank_Befehl_Ausfuehren(f"SELECT preis_id FROM preis_verlauf WHERE item_id = {id_kiste} AND zeitstempel LIKE '{heute}%';")

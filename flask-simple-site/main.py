@@ -98,7 +98,7 @@ def item_loeschen():
    
 def main():
     Datenbank_Erstellen()
-    # Kisten_Preis()
+    Kisten_Preis()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
