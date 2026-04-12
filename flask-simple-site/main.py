@@ -28,11 +28,9 @@ def einloggen():
             # Benutzername Speichern
             session['benutzername'] = Eingabe_Name
             
-            # Alle Werte für das Dashboard laden
-            G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(Eingabe_Name)
-            
-            return render_template("DashboardPage.html", gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
-        
+            return redirect(url_for('dashboard_anzeigen'))
+
+
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
 # Registrierungs-Daten abfragen
@@ -52,7 +50,19 @@ def Registrieren():
             
     return render_template("RegisterPage.html")
 
-# Session löschen
+@app.route("/dashboard")
+def dashboard_anzeigen():
+    if 'benutzername' not in session:
+        return redirect(url_for('startseite'))
+        
+    aktueller_benutzer = session['benutzername']
+    
+    # Alle Werte für das Dashboard laden
+    G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer)
+    return render_template("DashboardPage.html", gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
+
+
+# Session löschen und abmelden
 @app.route("/logout", methods=["GET"])
 def logout():
     session.pop('benutzername', None)
@@ -71,11 +81,8 @@ def item_hinzufuegen():
     # Kiste hinzufügen
     User_Kisten_hinzufuegen(aktueller_benutzer, Eingabe_kiste, Anzahl, Kaufpreis)
 
-    # Alle Werte für das Dashboard neu laden
-    G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer)
+    return redirect(url_for('dashboard_anzeigen'))
     
-    return render_template("DashboardPage.html", gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
-
 # Kisten aus Datenbank löschen
 @app.route("/item_loeschen", methods=["POST"])
 def item_loeschen():
@@ -87,12 +94,8 @@ def item_loeschen():
 
     # Funktion zum Löschen aufrufen
     User_Item_loeschen(aktueller_benutzer, kisten_name)
-    
-    # Alle Werte für das Dashboard neu laden
-    G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer)
-    
-    return render_template("DashboardPage.html", gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
-
+    return redirect(url_for('dashboard_anzeigen'))
+   
 def main():
     Datenbank_Erstellen()
     # Kisten_Preis()
