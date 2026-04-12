@@ -152,6 +152,19 @@ def Inventar_Gesamtwert_berechnen(Benutzername):
     Gesamtwert = Datenbank_befehl_ausfuehren(f"SELECT SUM(i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) FROM inventar i WHERE i.benutzer_id = {User_ID};")
     return Gesamtwert
 
+def Gesamtausgaben_berechnen(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    Gesamtausgaben = Datenbank_befehl_ausfuehren(f"SELECT SUM(menge*kaufpreis_stueck) AS Ausgaben From inventar WHERE benutzer_id = {User_ID};")
+    return Gesamtausgaben
+
+def Gewinn_Verlust(Benutzername):
+    Gesamtwert = Inventar_Gesamtwert_berechnen(Benutzername)
+    Gesamtwert = Gesamtwert[0][0]
+    Gesamtausgaben = Gesamtausgaben_berechnen(Benutzername)
+    Gesamtausgaben = Gesamtausgaben[0][0]
+    Berechnung = float(Gesamtwert) - float(Gesamtausgaben)
+    return Berechnung
+
 
 def Kisten_In_Datenbanken_anlegen():
 
@@ -360,6 +373,10 @@ def Kiste_ID_Finden(Kiste):
     print(f"Die Kisten ID ist {Kiste_ID}.")
     return Kiste_ID
 
+def Gesamtanzahl_Items(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    Gesamtanzahl = Datenbank_befehl_ausfuehren(f"SELECT SUM(menge) AS 'Gesamtanzahl' From inventar WHERE benutzer_id = {User_ID};")
+    return Gesamtanzahl
 
 if __name__ == "__main__":
     #Datenbank_befhel_ausfuehren(f"Insert INTO benutzer (benutzername, passwort_hash) Values ('Test2','123');")

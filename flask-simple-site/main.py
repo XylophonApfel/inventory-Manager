@@ -25,13 +25,27 @@ def einloggen():
         if Wert == True:
             #Benutername Speichern
             session['benutzername'] = Eingabe_Name
+
+            # Gesamtpreis berechen
             Gesamtpreis = Inventar_Gesamtwert_berechnen(session['benutzername'])
             if Gesamtpreis[0][0] == None:
                 Gesamtpreis = 0.00
             else:
                 Gesamtpreis = round(Gesamtpreis[0][0], 2)
             print(f"Gesamtpreis: {Gesamtpreis}")
-            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis)
+
+            # Gesamtanzahl Items berechnen
+            Gesamtanzahl = Gesamtanzahl_Items(session['benutzername'])
+            Gesamtanzahl = Gesamtanzahl[0][0]
+            if Gesamtanzahl == None:
+                Gesamtanzahl = 0
+            
+            # Gewinn/Verlust berechnen
+            Performance = Gewinn_Verlust(session['benutzername'])
+            if Performance == None:
+                Performance = 0.00
+            
+            return render_template("DashboardPage.html", gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=Performance)
         
     return render_template("LogInPage.html", fehlermeldung=Fehler)
 
@@ -62,22 +76,38 @@ def logout():
 def item_hinzufuegen():
     # Abfrage wer der Aktuelle Benutzer ist
     aktueller_benutzer = session['benutzername']
+
+    # Berechnung Gesamtpreis
     Gesamtpreis = Inventar_Gesamtwert_berechnen(aktueller_benutzer)
     if Gesamtpreis[0][0] == None:
         Gesamtpreis = 0.00
     else:
         Gesamtpreis = round(Gesamtpreis[0][0], 2)
     print(f"Gesamtpreis: {Gesamtpreis}")
+
+    # Hinzufügen der Kisten
     Eingabe_kiste = request.form.get("ausgewaehlte_kiste")
     Anzahl = request.form.get("anzahl")
     Kaufpreis = request.form.get("kaufpreis")
     print(f"Es werden {Anzahl} {Eingabe_kiste} zu {aktueller_benutzer} hinzugefügt für einen Kaufpreis von {Kaufpreis} €.")
     User_Kisten_hinzufügen(aktueller_benutzer, Eingabe_kiste, Anzahl, Kaufpreis)
-    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis)
+
+    # Gesamtanzahl Items berechnen
+    Gesamtanzahl = Gesamtanzahl_Items(session['benutzername'])
+    Gesamtanzahl = Gesamtanzahl[0][0]
+    if Gesamtanzahl == None:
+        Gesamtanzahl = 0
+    
+    # Gewinn/Verlust berechnen
+    Performance = Gewinn_Verlust(session['benutzername'])
+    if Performance == None:
+        Performance = 0.00
+    
+    return render_template("DashboardPage.html",gesamtwert=Gesamtpreis, gesamt_items=Gesamtanzahl, gewinn=Performance)
 
 def main():
     erstelle_datenbank()
-    Kisten_Preis()
+    #Kisten_Preis()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
