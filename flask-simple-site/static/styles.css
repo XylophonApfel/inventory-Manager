@@ -7,7 +7,6 @@ body {
     background-size: cover;                                                                                     /* Das Bild wird so gestreckt, dass es die gesamte Seite ausfüllt */
 }
 
-
 /* Alle a Elemente mit x werden so vorkonfiguriert */
 x {
     color: black;                 /* Schriftfarbe = Schwarz */
@@ -162,6 +161,7 @@ h2 {
             width: 100%;    /* Drop shadow */
         }
 
+
 /* Diagramm 1 */
 .chart-btn1 {
   padding: 8px 16px;
@@ -203,19 +203,39 @@ h2 {
     margin-left: 145px;  /* Sorgt dafür das der Button nach links verschoben wird */
 }
 
+
+
 /* Logout Button Dashboard */
 .logout-btn {
-    right: 20px;
+    right: 20px;                  /* 20px vom rechten Rand */
+    padding: 10px 20px;           /* Innenabstand */
+    background-color: #e74c3c;  /* Rote Hintergrundfarbe */
+    color: white;               /* Weiße Schrift */
+    text-decoration: none;        /* Keine Unterstreichung */
+    border-radius: 5px;           /* Leicht abgerundete Ecken */
+    font-weight: bold;            /* Fettschrift */
+    position: absolute;           /* Wird exakt auf der Seite platziert */
+    top: 67px;                    /* 67px vom oberen Rand */
+    right: 20px;                  /* 20px vom rechten Rand */
+}
+
+
+
+/* Benutzer Löschen Button auf dem Dashboard */
+.delete-user {
+    left: 20px;
     padding: 10px 20px;
-    background-color: #e74c3c;
+    background-color: #ab3ce7;
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
     position: absolute;
     top: 67px;                          /* Gleiche Höhe wie die h2 – Wert anpassen */
-    right: 20px;                        /* Gleiche Höhe wie die h2 – Wert anpassen */
+    left: 20px;                        /* Gleiche Höhe wie die h2 – Wert anpassen */
 }
+
+
 
 /* Form für den Gesamtwert des Inventars */
 label1 {
