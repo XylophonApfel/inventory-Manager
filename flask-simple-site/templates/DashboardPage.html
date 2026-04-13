@@ -19,11 +19,15 @@
 
 
 <body>
+
 <!-- Logout Button -->
 <a align="right" href="/logout" class="logout-btn"> Logout </a>
-<form action="/account_loeschen" method="POST" style="display: inline; float: left; margin-left: 20px;" onsubmit="return confirm('Möchtest du deinen Account und dein gesamtes Inventar wirklich unwiderruflich löschen?');">
-    <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Account löschen</button>
+
+<!-- Delete User Button -->
+<form action="/account_loeschen" method="POST" onsubmit="return confirm('Möchtest du deinen Account und dein gesamtes Inventar wirklich unwiderruflich löschen?');">
+    <button type="submit" class="delete-user">Account löschen</button>
 </form>
+
 
 <center>
 <a> Steam-Inventar-Manager</a>
