@@ -17,8 +17,7 @@ def Datenbank_Erstellen():
     cursor.execute('''CREATE TABLE IF NOT EXISTS gegenstand (
         item_id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE NOT NULL,
-        typ TEXT,
-        icon_pfad TEXT)''')
+        typ TEXT)''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS inventar (
         inventar_id INTEGER PRIMARY KEY AUTOINCREMENT,

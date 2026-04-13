@@ -62,13 +62,17 @@ def Benutzer_anmelden(Benutzername, Passwort):
 
 # Findet die ID eines Benutzers
 def User_ID_Finden(Benutzername):
-    Benutzer_ID = Datenbank_Befehl_Ausfuehren("SELECT benutzer_id FROM benutzer WHERE benutzername = ?;", (Benutzername,))
-    return Benutzer_ID[0][0]
+    User_ID = Datenbank_Befehl_Ausfuehren("SELECT benutzer_id FROM benutzer WHERE benutzername = ?;", (Benutzername,))
+    return User_ID[0][0]
 
 # Findet die ID einer Kiste
 def Kiste_ID_Finden(Kiste):
     Kiste_ID = Datenbank_Befehl_Ausfuehren("SELECT item_id FROM gegenstand WHERE name = ?;", (Kiste,))
     return Kiste_ID[0][0]
+
+def User_loeschen(Benutzername):
+    User_ID = User_ID_Finden(Benutzername)
+    Datenbank_Befehl_Ausfuehren("DELETE FROM benutzer WHERE benutzer_id = ?;", (User_ID,))
 
 # ==========================================
 # INVENTAR LOGIK
