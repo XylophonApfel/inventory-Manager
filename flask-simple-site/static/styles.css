@@ -206,7 +206,7 @@ h2 {
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background: #db0909;
+    background: #ff0000;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -220,7 +220,7 @@ h2 {
 .logout-btn {
     right: 20px;                  /* 20px vom rechten Rand */
     padding: 10px 20px;           /* Innenabstand */
-    background-color: #e74c3c;  /* Rote Hintergrundfarbe */
+    background-color: #ff0000;  /* Rote Hintergrundfarbe */
     color: white;               /* Weiße Schrift */
     text-decoration: none;        /* Keine Unterstreichung */
     border-radius: 5px;           /* Leicht abgerundete Ecken */
@@ -236,14 +236,14 @@ h2 {
 .delete-user {
     left: 20px;
     padding: 10px 20px;
-    background-color: #ab3ce7;
+    background-color: #ff0000;
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    position: absolute;
-    top: 67px;                          /* Gleiche Höhe wie die h2 – Wert anpassen */
-    left: 20px;                        /* Gleiche Höhe wie die h2 – Wert anpassen */
+    position: absolute;                   /* Wird exakt auf der Seite platziert */
+    top: 67px;                            /* 67px vom oberen Rand */
+    left: 20px;                           /* 20px vom linken Rand */
 }
 
 
