@@ -76,6 +76,16 @@ def logout():
     session.pop('benutzername', None)
     return render_template("LogInPage.html")
 
+# Account löschen
+@app.route("/account_loeschen", methods=["POST"])
+def account_loeschen():
+    if 'benutzername' in session:
+        aktueller_benutzer = session['benutzername']
+        User_loeschen(aktueller_benutzer)
+        session.pop('benutzername', None) # Session leeren
+        
+    return redirect(url_for('startseite'))
+
 # Kisten in Datenbank schreiben
 @app.route("/item_hinzufuegen", methods=["POST", "GET"])
 def item_hinzufuegen():
