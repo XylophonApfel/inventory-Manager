@@ -1,10 +1,20 @@
+import os
 import sqlite3
+import sys
+
+
+def _db_path():
+    if getattr(sys, "frozen", False):
+        base_dir = os.path.dirname(sys.executable)
+    else:
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    return os.path.join(base_dir, "inventar_manager.db")
 
 # Erstellt lokale SQLite-Datenbank
 # Tabellen anlegen
 
 def Datenbank_Erstellen():
-    con = sqlite3.connect('inventar_manager.db')
+    con = sqlite3.connect(_db_path())
     cursor = con.cursor()
     cursor.execute("PRAGMA foreign_keys = ON;")
 
@@ -42,7 +52,7 @@ def Datenbank_Erstellen():
 
 # SQL-Befehl ausführen
 def Datenbank_Befehl_Ausfuehren(Befehl, Parameter=()):
-    con = sqlite3.connect('inventar_manager.db')
+    con = sqlite3.connect(_db_path())
     cur = con.cursor()
     
     # Prüft, ob Parameter mitgegeben wurden
