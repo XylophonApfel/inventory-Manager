@@ -117,11 +117,17 @@ def item_loeschen():
 def main():
     Datenbank_Erstellen()
     Kisten_In_Datenbanken_anlegen()
+    print("--------------------------------------------")
+    print("Bitte warten bis alle Preise geladen wurden!")
+    print("--------------------------------------------")
     Wert = Preis_pruefen()
     if Wert == True:
         Kisten_Preis()
 
 def beenden():
+    print("--------------------------------------------")
+    print("Bitte warten bis alle Preise geladen wurden!")
+    print("--------------------------------------------")
     Kisten_Preis()
 
 if __name__ == "__main__":

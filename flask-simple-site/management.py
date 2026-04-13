@@ -14,11 +14,22 @@ from database import *
 # Erstellt einen neuen Benutzer
 def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     wert = Benutzer_vorhanden(Benutzername)
-    if Passwort != Passwort_confirm:
+
+    # Nur Buchstaben und Zahlen erlaubt
+    if not Benutzername.isalnum():
+        wert = 3
+        
+    # Mindestens 3 Zeichen lang
+    elif len(Benutzername) < 3:
+        wert = 4
+        
+    # Passwörter abgleichen
+    elif Passwort != Passwort_confirm:
         wert = 2
         
     Passwort_Hash = generate_password_hash(Passwort)
 
+    # Auswertung der Ergebnisse
     if wert == 0:
         Datenbank_Befehl_Ausfuehren("INSERT INTO benutzer (benutzername, passwort_hash) VALUES (?, ?);", (Benutzername, Passwort_Hash))
         Fehler = ""
@@ -28,6 +39,12 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
         return False, Fehler
     elif wert == 2:
         Fehler = "Passwörter stimmen nicht überein!"
+        return False, Fehler
+    elif wert == 3:
+        Fehler = "Der Benutzername darf nur aus Buchstaben und Zahlen bestehen!"
+        return False, Fehler
+    elif wert == 4:
+        Fehler = "Der Benutzername muss mindestens 3 Zeichen lang sein!"
         return False, Fehler
 
 # Prüft ob Benutzer schon existiert
