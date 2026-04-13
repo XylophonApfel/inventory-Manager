@@ -14,7 +14,7 @@ x {
 }
 
 
-/*Alles hier für das Login Feld auf der LogIn Seite */
+/*Alles hier für das Login Feld auf der LogIn */
 
 /* Lädt die Schriftart "DM Sans" von Google, damit sie auf der Seite verwendet werden kann */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -354,18 +354,8 @@ label1 {
 .card-anzahl .card-value {
   color: #9C27B0;
 }
- 
-/* Gesamtgewinn – Grün */
-.card-gewinn .card-icon,
-.card-gewinn .card-value {
-  color: #4CAF50;
-}
- 
-/* Performance – Orange */
-.card-performance .card-icon,
-.card-performance .card-value {
-  color: #FF5722;
-}
+
+
 
 /* ===========================
    Diagramm Container

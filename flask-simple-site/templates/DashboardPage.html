@@ -71,16 +71,22 @@
 
   <div class="card card-gewinn">
     <div>
+      {% set text_color = '#28a745' if gewinn >= 0 else '#e74c3c' %}
       <div class="card-label">Gewninn / Verlust nach abzug der Kaufkosten</div>
-      <div class="card-value">{{gewinn}} €</div>
+      <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">
+      {{ "%.2f"|format(gewinn) }} €
+      </span>
     </div>
     <div class="card-icon">↗</div>
   </div>
 
   <div class="card card-performance">
     <div>
+      {% set text_color = '#28a745' if gewinn_prozent >= 0 else '#e74c3c' %}
       <div class="card-label">Performance</div>
-      <div class="card-value">{{gewinn_prozent}} %</div>
+      <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">
+      {{ "%.2f"|format(gewinn_prozent) }} €
+      </span>
     </div>
     <div class="card-icon">〜</div>
   </div>
