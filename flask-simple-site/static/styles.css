@@ -14,15 +14,15 @@ x {
 }
 
 
-/*Login Feld */
+/*Alles hier für das Login Feld auf der LogIn Seite */
 
 /* Lädt die Schriftart "DM Sans" von Google, damit sie auf der Seite verwendet werden kann */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
 
 .container {
-    width: 100%;
-    max-width: 400px;
+    width: 100%;        /* Breite = 100% des verfügbaren Platzes */
+    max-width: 400px;   /* Aber maximal 400 Pixel breit – damit es nicht zu breit wird */
 }
 
 .form-container {
