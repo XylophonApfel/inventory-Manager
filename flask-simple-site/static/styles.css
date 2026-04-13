@@ -1,24 +1,25 @@
 
 /* Hintergrundbild */
 body {
-    background-image: url('https://4kwallpapers.com/images/wallpapers/modern-blue-waves-1920x1080-24611.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    background-image: url('https://4kwallpapers.com/images/wallpapers/modern-blue-waves-1920x1080-24611.jpg');  /* Lädt ein Bild aus dem Internet und setzt es als Hintergrundbild */
+    background-repeat: no-repeat;                                                                               /* Das Bild wird NICHT wiederholt/gekachelt */
+    background-attachment: fixed;                                                                               /* Das Bild bleibt beim Scrollen stehen, der Inhalt scrollt drüber hinweg */
+    background-size: cover;                                                                                     /* Das Bild wird so gestreckt, dass es die gesamte Seite ausfüllt */
 }
 
 
 /* Alle a Elemente mit x werden so vorkonfiguriert */
 x {
-    color: black;
-    text-decoration: none;
-    
+    color: black;                 /* Schriftfarbe = Schwarz */
+    text-decoration: none;          /* Entfernt die standardmäßige Unterstreichung bei Links */
 }
 
 
 /*Login Feld */
-/*Font*/
+
+/* Lädt die Schriftart "DM Sans" von Google, damit sie auf der Seite verwendet werden kann */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 
 .container {
     width: 100%;
