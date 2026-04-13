@@ -128,6 +128,18 @@
 <div class="inventory-list-wrapper" style="margin-top: 40px; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 20px;">
     <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Aktuelles Inventar</h3>
     
+    <div style="text-align: right; margin-bottom: 15px;">
+      <form action="/dashboard" method="GET" style="display: inline-block;">
+        <label for="sortierung" style="color: #666; font-size: 0.9rem; margin-right: 10px;">Sortieren nach:</label>
+        <select name="sortierung" onchange="this.form.submit()" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; cursor: pointer;">
+            <option value="menge_desc" {% if aktuelle_sortierung == 'menge_desc' %}selected{% endif %}>Anzahl (Meiste zuerst)</option>
+            <option value="wert_desc" {% if aktuelle_sortierung == 'wert_desc' %}selected{% endif %}>Aktueller Wert (Höchster zuerst)</option>
+            <option value="name_asc" {% if aktuelle_sortierung == 'name_asc' %}selected{% endif %}>Alphabetisch (A-Z)</option>
+            <option value="ausgaben_desc" {% if aktuelle_sortierung == 'ausgaben_desc' %}selected{% endif %}>Ausgaben (Höchste zuerst)</option>
+        </select>
+      </form>
+    </div>
+
     {% if inv_liste %}
         <ul style="list-style-type: none; padding: 0;">
         {% for kiste in inv_liste %}

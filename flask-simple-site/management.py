@@ -20,7 +20,6 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     Passwort_Hash = generate_password_hash(Passwort)
 
     if wert == 0:
-        # KORRIGIERT: Beide Werte in EINER Klammer
         Datenbank_Befehl_Ausfuehren("INSERT INTO benutzer (benutzername, passwort_hash) VALUES (?, ?);", (Benutzername, Passwort_Hash))
         Fehler = ""
         return True, Fehler
@@ -49,7 +48,6 @@ def Benutzer_vorhanden(Benutzername):
 # Loggt den Benutzer ein
 def Benutzer_anmelden(Benutzername, Passwort):
     try:
-        # KORRIGIERT: Komma nach Benutzername
         Ergebniss = Datenbank_Befehl_Ausfuehren("SELECT passwort_hash FROM benutzer WHERE benutzername = ?;", (Benutzername,))
         
         if not Ergebniss:
@@ -64,13 +62,11 @@ def Benutzer_anmelden(Benutzername, Passwort):
 
 # Findet die ID eines Benutzers
 def User_ID_Finden(Benutzername):
-    # KORRIGIERT: Komma hinzugefügt
     Benutzer_ID = Datenbank_Befehl_Ausfuehren("SELECT benutzer_id FROM benutzer WHERE benutzername = ?;", (Benutzername,))
     return Benutzer_ID[0][0]
 
 # Findet die ID einer Kiste
 def Kiste_ID_Finden(Kiste):
-    # KORRIGIERT: Komma hinzugefügt
     Kiste_ID = Datenbank_Befehl_Ausfuehren("SELECT item_id FROM gegenstand WHERE name = ?;", (Kiste,))
     return Kiste_ID[0][0]
 
@@ -83,7 +79,6 @@ def User_Kisten_hinzufuegen(Benutzer, Kiste, Anzahl, Kaufpreis):
     Benutzer_ID = User_ID_Finden(Benutzer)
     Kiste_ID = Kiste_ID_Finden(Kiste)
     
-    # KORRIGIERT: In eine Klammer gepackt
     Abfrage = Datenbank_Befehl_Ausfuehren("SELECT menge, kaufpreis_stueck FROM inventar WHERE benutzer_id = ? AND item_id = ?;", (Benutzer_ID, Kiste_ID))
     
     if Abfrage:
@@ -94,10 +89,8 @@ def User_Kisten_hinzufuegen(Benutzer, Kiste, Anzahl, Kaufpreis):
         Durchschnitt_Kaufpreis = ((alter_kaufpreis * aktuelle_anzahl) + (int(Anzahl) * float(Kaufpreis))) / neue_anzahl
         Durchschnitt_Kaufpreis = round(Durchschnitt_Kaufpreis, 2)
         
-        # KORRIGIERT: Diese Zeile war noch ohne Platzhalter
         Datenbank_Befehl_Ausfuehren("UPDATE inventar SET menge = ?, kaufpreis_stueck = ? WHERE benutzer_id = ? AND item_id = ?;", (neue_anzahl, Durchschnitt_Kaufpreis, Benutzer_ID, Kiste_ID))
     else:
-        # KORRIGIERT: Diese Zeile war noch ohne Platzhalter
         Datenbank_Befehl_Ausfuehren("INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES(?, ?, ?, ?);", (Benutzer_ID, Kiste_ID, Anzahl, Kaufpreis))
 
 # Löscht eine komplette Kisten-Position
@@ -105,14 +98,35 @@ def User_Item_loeschen(Benutzername, Kisten_name):
     User_ID = User_ID_Finden(Benutzername)
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
     
-    # KORRIGIERT: In eine Klammer gepackt
     Datenbank_Befehl_Ausfuehren("DELETE FROM inventar WHERE benutzer_id = ? AND item_id = ?;", (User_ID, Kisten_ID))
 
 # Holt alle Items für die Liste
-def User_Inventar_abrufen(Benutzername):
+def User_Inventar_abrufen(Benutzername, sortierung="menge_desc"):
     User_ID = User_ID_Finden(Benutzername)
-    # KORRIGIERT: Komma hinzugefügt
-    Ergebnis = Datenbank_Befehl_Ausfuehren("SELECT g.name, i.menge, i.kaufpreis_stueck, (i.menge * i.kaufpreis_stueck) AS Ausgaben, (i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) AS Aktueller_Wert FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = ? ORDER BY i.menge DESC;", (User_ID,))
+    
+    # Sortierung
+    if sortierung == "wert_desc":
+        order_by = "Aktueller_Wert DESC"     # Höchster Wert zuerst
+    elif sortierung == "name_asc":
+        order_by = "g.name ASC"              # Alphabetisch (A-Z)
+    elif sortierung == "ausgaben_desc":
+        order_by = "Ausgaben DESC"           # Höchste Ausgaben zuerst
+    else:
+        order_by = "i.menge DESC"            # Standard: Meiste Menge zuerst
+
+    Befehl = f"""
+        SELECT 
+            g.name, 
+            i.menge, 
+            i.kaufpreis_stueck, 
+            ROUND(i.menge * i.kaufpreis_stueck, 2) AS Ausgaben,
+            ROUND(i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1), 2) AS Aktueller_Wert
+        FROM inventar i 
+        JOIN gegenstand g ON i.item_id = g.item_id 
+        WHERE i.benutzer_id = ? 
+        ORDER BY {order_by};
+    """
+    Ergebnis = Datenbank_Befehl_Ausfuehren(Befehl, (User_ID,))
     return Ergebnis
 
 # Holt alle Kisten-Namen aus der Datenbank für das Menü
@@ -200,13 +214,14 @@ def Portfolio_Historie_berechnen(Benutzername):
     return labels, werte
 
 # Bündelt alle Werte für die Routen in main.py
-def Dashboard_Werte_abrufen(Benutzername):
+def Dashboard_Werte_abrufen(Benutzername, sortierung="menge_desc"):
+
     Gesamtpreis_Roh = Inventar_Gesamtwert_berechnen(Benutzername)[0][0]
     if Gesamtpreis_Roh == None:
         Gesamtpreis = 0.00
     else:
-        Gesamtpreis = round(Gesamtpreis_Roh, 2)
-        
+        Gesamtpreis = round(Gesamtpreis_Roh, 2)   
+
     Gesamtanzahl_Roh = Gesamtanzahl_Items(Benutzername)[0][0]
     if Gesamtanzahl_Roh == None:
         Gesamtanzahl = 0
@@ -225,12 +240,12 @@ def Dashboard_Werte_abrufen(Benutzername):
     else:
         Performance_prozent = round(Performance_prozent_Roh, 2)
 
-    inventar_liste = User_Inventar_abrufen(Benutzername)
+    inventar_liste = User_Inventar_abrufen(Benutzername, sortierung)
     if inventar_liste == None:
-        inventar_liste = [("Keine Kisten", 0, 0.00)]
+        inventar_liste = [("Keine Kisten", 0, 0.00, 0.00, 0.00)]
         
     labels, werte = Portfolio_Historie_berechnen(Benutzername)
-    
+
     return Gesamtpreis, Gesamtanzahl, Performance, Performance_prozent, inventar_liste, labels, werte
 
 # ==========================================
