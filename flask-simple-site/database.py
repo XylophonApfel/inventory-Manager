@@ -42,10 +42,15 @@ def Datenbank_Erstellen():
 
 
 # SQL-Befehl ausführen
-def Datenbank_Befehl_Ausfuehren(Befehl):
+def Datenbank_Befehl_Ausfuehren(Befehl, Parameter=()):
     con = sqlite3.connect('inventar_manager.db')
     cur = con.cursor()
-    Ergebniss = cur.execute(Befehl)
+    
+    # Prüft, ob Parameter mitgegeben wurden
+    if Parameter:
+        Ergebniss = cur.execute(Befehl, Parameter)
+    else:
+        Ergebniss = cur.execute(Befehl)
 
     if Ergebniss.description is not None:
         daten = Ergebniss.fetchall()

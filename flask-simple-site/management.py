@@ -20,7 +20,8 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     Passwort_Hash = generate_password_hash(Passwort)
 
     if wert == 0:
-        Datenbank_Befehl_Ausfuehren(f"INSERT INTO benutzer (benutzername, passwort_hash) VALUES ('{Benutzername}','{Passwort_Hash}');")
+        # KORRIGIERT: Beide Werte in EINER Klammer
+        Datenbank_Befehl_Ausfuehren("INSERT INTO benutzer (benutzername, passwort_hash) VALUES (?, ?);", (Benutzername, Passwort_Hash))
         Fehler = ""
         return True, Fehler
     elif wert == 1:
@@ -48,30 +49,29 @@ def Benutzer_vorhanden(Benutzername):
 # Loggt den Benutzer ein
 def Benutzer_anmelden(Benutzername, Passwort):
     try:
-        Ergebniss = Datenbank_Befehl_Ausfuehren(f"SELECT passwort_hash FROM benutzer WHERE benutzername ='{Benutzername}';")
+        # KORRIGIERT: Komma nach Benutzername
+        Ergebniss = Datenbank_Befehl_Ausfuehren("SELECT passwort_hash FROM benutzer WHERE benutzername = ?;", (Benutzername,))
         
-        if Ergebniss is None or len(Ergebniss) == 0:
-            Fehler = "Bitte geben Sie einen gültigen Benutzernamen ein!"
-            return False, Fehler
+        if not Ergebniss:
+            return False, "Benutzername nicht gefunden!"
             
         if check_password_hash(Ergebniss[0][0], Passwort):
-            Fehler = ""
-            return True, Fehler
+            return True, ""
         else:
-            Fehler = "Bitte geben Sie ein gültiges Passwort ein!"
-            return False, Fehler  
+            return False, "Falsches Passwort!"
     except Exception as e:
-        print(f"Fehler beim Anmelden: {e}")
         return False, "Systemfehler"
 
 # Findet die ID eines Benutzers
 def User_ID_Finden(Benutzername):
-    Benutzer_ID = Datenbank_Befehl_Ausfuehren(f"SELECT benutzer_id FROM benutzer WHERE benutzername = '{Benutzername}';")
+    # KORRIGIERT: Komma hinzugefügt
+    Benutzer_ID = Datenbank_Befehl_Ausfuehren("SELECT benutzer_id FROM benutzer WHERE benutzername = ?;", (Benutzername,))
     return Benutzer_ID[0][0]
 
 # Findet die ID einer Kiste
 def Kiste_ID_Finden(Kiste):
-    Kiste_ID = Datenbank_Befehl_Ausfuehren(f"SELECT item_id FROM gegenstand WHERE name = '{Kiste}';")
+    # KORRIGIERT: Komma hinzugefügt
+    Kiste_ID = Datenbank_Befehl_Ausfuehren("SELECT item_id FROM gegenstand WHERE name = ?;", (Kiste,))
     return Kiste_ID[0][0]
 
 # ==========================================
@@ -82,7 +82,9 @@ def Kiste_ID_Finden(Kiste):
 def User_Kisten_hinzufuegen(Benutzer, Kiste, Anzahl, Kaufpreis):
     Benutzer_ID = User_ID_Finden(Benutzer)
     Kiste_ID = Kiste_ID_Finden(Kiste)
-    Abfrage = Datenbank_Befehl_Ausfuehren(f"SELECT menge, kaufpreis_stueck FROM inventar WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+    
+    # KORRIGIERT: In eine Klammer gepackt
+    Abfrage = Datenbank_Befehl_Ausfuehren("SELECT menge, kaufpreis_stueck FROM inventar WHERE benutzer_id = ? AND item_id = ?;", (Benutzer_ID, Kiste_ID))
     
     if Abfrage:
         aktuelle_anzahl = int(Abfrage[0][0])
@@ -92,21 +94,35 @@ def User_Kisten_hinzufuegen(Benutzer, Kiste, Anzahl, Kaufpreis):
         Durchschnitt_Kaufpreis = ((alter_kaufpreis * aktuelle_anzahl) + (int(Anzahl) * float(Kaufpreis))) / neue_anzahl
         Durchschnitt_Kaufpreis = round(Durchschnitt_Kaufpreis, 2)
         
-        Datenbank_Befehl_Ausfuehren(f"UPDATE inventar SET menge = {neue_anzahl}, kaufpreis_stueck = {Durchschnitt_Kaufpreis} WHERE benutzer_id = {Benutzer_ID} AND item_id = {Kiste_ID};")
+        # KORRIGIERT: Diese Zeile war noch ohne Platzhalter
+        Datenbank_Befehl_Ausfuehren("UPDATE inventar SET menge = ?, kaufpreis_stueck = ? WHERE benutzer_id = ? AND item_id = ?;", (neue_anzahl, Durchschnitt_Kaufpreis, Benutzer_ID, Kiste_ID))
     else:
-        Datenbank_Befehl_Ausfuehren(f"INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES({Benutzer_ID}, {Kiste_ID}, {Anzahl}, {Kaufpreis});")
+        # KORRIGIERT: Diese Zeile war noch ohne Platzhalter
+        Datenbank_Befehl_Ausfuehren("INSERT INTO inventar (benutzer_id, item_id, menge, kaufpreis_stueck) VALUES(?, ?, ?, ?);", (Benutzer_ID, Kiste_ID, Anzahl, Kaufpreis))
 
 # Löscht eine komplette Kisten-Position
 def User_Item_loeschen(Benutzername, Kisten_name):
     User_ID = User_ID_Finden(Benutzername)
     Kisten_ID = Kiste_ID_Finden(Kisten_name)
-    Datenbank_Befehl_Ausfuehren(f"DELETE FROM inventar WHERE benutzer_id = {User_ID} AND item_id = {Kisten_ID};")
+    
+    # KORRIGIERT: In eine Klammer gepackt
+    Datenbank_Befehl_Ausfuehren("DELETE FROM inventar WHERE benutzer_id = ? AND item_id = ?;", (User_ID, Kisten_ID))
 
 # Holt alle Items für die Liste
 def User_Inventar_abrufen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Ergebnis = Datenbank_Befehl_Ausfuehren(f"SELECT g.name, i.menge, i.kaufpreis_stueck FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = {User_ID} ORDER BY i.menge DESC;")
+    # KORRIGIERT: Komma hinzugefügt
+    Ergebnis = Datenbank_Befehl_Ausfuehren("SELECT g.name, i.menge, i.kaufpreis_stueck, (i.menge * i.kaufpreis_stueck) AS Ausgaben, (i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) AS Aktueller_Wert FROM inventar i JOIN gegenstand g ON i.item_id = g.item_id WHERE i.benutzer_id = ? ORDER BY i.menge DESC;", (User_ID,))
     return Ergebnis
+
+# Holt alle Kisten-Namen aus der Datenbank für das Menü
+def Alle_Kisten_abrufen():
+    Ergebnis = Datenbank_Befehl_Ausfuehren("SELECT name FROM gegenstand ORDER BY name ASC;")
+    Liste = []
+    if Ergebnis:
+        for zeile in Ergebnis:
+            Liste.append(zeile[0])
+    return Liste
 
 # ==========================================
 # BERECHNUNGEN
@@ -115,19 +131,19 @@ def User_Inventar_abrufen(Benutzername):
 # Berechnet aktuellen Wert
 def Inventar_Gesamtwert_berechnen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Gesamtwert = Datenbank_Befehl_Ausfuehren(f"SELECT SUM(i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) FROM inventar i WHERE i.benutzer_id = {User_ID};")
+    Gesamtwert = Datenbank_Befehl_Ausfuehren("SELECT SUM(i.menge * (SELECT p.preis FROM preis_verlauf p WHERE p.item_id = i.item_id ORDER BY p.zeitstempel DESC LIMIT 1)) FROM inventar i WHERE i.benutzer_id = ?;", (User_ID,))
     return Gesamtwert
 
 # Berechnet ausgegebenes Geld
 def Gesamtausgaben_berechnen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Gesamtausgaben = Datenbank_Befehl_Ausfuehren(f"SELECT SUM(menge*kaufpreis_stueck) AS Ausgaben FROM inventar WHERE benutzer_id = {User_ID};")
+    Gesamtausgaben = Datenbank_Befehl_Ausfuehren("SELECT SUM(menge*kaufpreis_stueck) AS Ausgaben FROM inventar WHERE benutzer_id = ?;", (User_ID,))
     return Gesamtausgaben
 
 # Addiert alle Kistenmengen
 def Gesamtanzahl_Items(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Gesamtanzahl = Datenbank_Befehl_Ausfuehren(f"SELECT SUM(menge) AS 'Gesamtanzahl' FROM inventar WHERE benutzer_id = {User_ID};")
+    Gesamtanzahl = Datenbank_Befehl_Ausfuehren("SELECT SUM(menge) AS 'Gesamtanzahl' FROM inventar WHERE benutzer_id = ?;", (User_ID,))
     return Gesamtanzahl
 
 # Gewinn oder Verlust in Euro
@@ -162,16 +178,16 @@ def Gewinn_Verlust_Prozent(Benutzername):
 # Berechnet Historie für Chart.js
 def Portfolio_Historie_berechnen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Befehl = f"""
+    Befehl = """
         SELECT DATE(p.zeitstempel) as tag, SUM(i.menge * p.preis) as gesamt_wert
         FROM inventar i
         JOIN preis_verlauf p ON i.item_id = p.item_id
-        WHERE i.benutzer_id = {User_ID}
+        WHERE i.benutzer_id = ?
         GROUP BY tag
         ORDER BY tag ASC
         LIMIT 7;
     """
-    Ergebnis = Datenbank_Befehl_Ausfuehren(Befehl)
+    Ergebnis = Datenbank_Befehl_Ausfuehren(Befehl, (User_ID,))
     
     labels = []
     werte = []
@@ -238,7 +254,7 @@ csgo_cases = [
 
 def Kisten_In_Datenbanken_anlegen():
     for i in csgo_cases:
-        Datenbank_Befehl_Ausfuehren(f"INSERT OR IGNORE INTO gegenstand (name, typ) VALUES('{i}', 'Kiste');")
+        Datenbank_Befehl_Ausfuehren("INSERT OR IGNORE INTO gegenstand (name, typ) VALUES(?, 'Kiste');", (i,))
 
 def Kisten_Preis():
     for i in csgo_cases:
@@ -248,12 +264,12 @@ def Kisten_Preis():
             antwort = requests.get(url).json()
             if antwort.get("success") == True:
                 preis = float(antwort.get("lowest_price", "0,00€").replace('€', '').replace('-', '0').replace(',', '.').strip())
-                id_kiste = Kiste_ID_Finden(i)
+                id_kiste = Datenbank_Befehl_Ausfuehren("SELECT item_id FROM gegenstand WHERE name = ?;", (i,))[0][0]
                 heute = datetime.now().strftime("%Y-%m-%d")
                 
-                check = Datenbank_Befehl_Ausfuehren(f"SELECT preis_id FROM preis_verlauf WHERE item_id = {id_kiste} AND zeitstempel LIKE '{heute}%';")
+                check = Datenbank_Befehl_Ausfuehren("SELECT preis_id FROM preis_verlauf WHERE item_id = ? AND zeitstempel LIKE ?;", (id_kiste, f"{heute}%"))
                 if not check:
-                    Datenbank_Befehl_Ausfuehren(f"INSERT INTO preis_verlauf (item_id, preis, zeitstempel) VALUES ({id_kiste}, {preis}, '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}');")
+                    Datenbank_Befehl_Ausfuehren("INSERT INTO preis_verlauf (item_id, preis, zeitstempel) VALUES (?, ?, ?);", (id_kiste, preis, datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         except Exception as e:
             pass
         time.sleep(2)

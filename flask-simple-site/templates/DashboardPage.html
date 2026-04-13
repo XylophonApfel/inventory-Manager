@@ -29,6 +29,14 @@
 <center>
 <!-- Überschrift -->
 <h2> Dashboard </h2>
+
+<!--Optionale Funktionen: Warnhinweis bei Minus-->
+{% if gewinn < 0 %}
+<div style="background-color: #ffe6e6; color: #cc0000; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; border: 1px solid #cc0000; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <strong>⚠️ Warnung:</strong> Dein Portfolio verzeichnet aktuell einen Verlust von {{ gewinn }} €. Bitte behalte den Markt im Auge!
+</div>
+{% endif %}
+
 <br>
 <br>
 </center>
@@ -99,47 +107,9 @@
     <label align="left"> Wähle eine Kiste aus: </label>
     
     <select name="ausgewaehlte_kiste" class="input-field1">
-        <option value="Chroma Case">Chroma Case</option>
-        <option value="Chroma 2 Case">Chroma 2 Case</option>
-        <option value="Chroma 3 Case">Chroma 3 Case</option>
-        <option value="Clutch Case">Clutch Case</option>
-        <option value="CS20 Case">CS20 Case</option>
-        <option value="CS:GO Weapon Case">CS:GO Weapon Case</option>
-        <option value="CS:GO Weapon Case 2">CS:GO Weapon Case 2</option>
-        <option value="CS:GO Weapon Case 3">CS:GO Weapon Case 3</option>
-        <option value="Danger Zone Case">Danger Zone Case</option>
-        <option value="Dreams & Nightmares Case">Dreams & Nightmares Case</option>
-        <option value="eSports 2013 Case">eSports 2013 Case</option>
-        <option value="eSports 2013 Winter Case">eSports 2013 Winter Case</option>
-        <option value="eSports 2014 Summer Case">eSports 2014 Summer Case</option>
-        <option value="Falchion Case">Falchion Case</option>
-        <option value="Fracture Case">Fracture Case</option>
-        <option value="Gallery Case">Gallery Case</option>
-        <option value="Gamma Case">Gamma Case</option>
-        <option value="Gamma 2 Case">Gamma 2 Case</option>
-        <option value="Glove Case">Glove Case</option>
-        <option value="Horizon Case">Horizon Case</option>
-        <option value="Huntsman Weapon Case">Huntsman Weapon Case</option>
-        <option value="Kilowatt Case">Kilowatt Case</option>
-        <option value="Operation Bravo Case">Operation Bravo Case</option>
-        <option value="Operation Breakout Weapon Case">Operation Breakout Weapon Case</option>
-        <option value="Operation Broken Fang Case">Operation Broken Fang Case</option>
-        <option value="Operation Hydra Case">Operation Hydra Case</option>
-        <option value="Operation Phoenix Weapon Case">Operation Phoenix Weapon Case</option>
-        <option value="Operation Riptide Case">Operation Riptide Case</option>
-        <option value="Operation Vanguard Weapon Case">Operation Vanguard Weapon Case</option>
-        <option value="Operation Wildfire Case">Operation Wildfire Case</option>
-        <option value="Prisma Case">Prisma Case</option>
-        <option value="Prisma 2 Case">Prisma 2 Case</option>
-        <option value="Recoil Case">Recoil Case</option>
-        <option value="Revolution Case">Revolution Case</option>
-        <option value="Revolver Case">Revolver Case</option>
-        <option value="Shadow Case">Shadow Case</option>
-        <option value="Shattered Web Case">Shattered Web Case</option>
-        <option value="Snakebite Case">Snakebite Case</option>
-        <option value="Spectrum Case">Spectrum Case</option>
-        <option value="Spectrum 2 Case">Spectrum 2 Case</option>
-        <option value="Winter Offensive Weapon Case">Winter Offensive Weapon Case</option>
+      {% for kiste in alle_kisten %}
+        <option value="{{ kiste }}">{{ kiste }}</option>
+      {% endfor %}
     </select>
 
     <label for="anzahl" style="padding:8px;"> Bitte die Anzahl der Kisten wählen: </label>
@@ -161,24 +131,36 @@
     {% if inv_liste %}
         <ul style="list-style-type: none; padding: 0;">
         {% for kiste in inv_liste %}
-            <li style="background-color: #f9f9f9; margin-bottom: 10px; padding: 15px 25px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <li style="background-color: #fff; margin-bottom: 15px; padding: 20px 25px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #eaeaea; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 
-                <div style="flex: 2; text-align: left;">
-                    <strong style="color: #2c3e50; font-size: 1.1rem;">{{ kiste[0] }}</strong> 
+                <div style="flex: 2.5; text-align: left; padding-right: 15px;">
+                    <strong style="color: #2c3e50; font-size: 1.15rem; display: block;">{{ kiste[0] }}</strong> 
                 </div>
 
                 <div style="flex: 1; text-align: center;">
-                    <span style="font-weight: bold; color: #007bff; background-color: #e6f2ff; padding: 5px 10px; border-radius: 5px;">{{ kiste[1] }} Stück</span>
+                    <span style="font-weight: 700; color: #007bff; background-color: #e6f2ff; padding: 6px 12px; border-radius: 6px; font-size: 0.95rem;">{{ kiste[1] }} Stück</span>
                 </div>
 
-                <div style="flex: 1; text-align: center;">
-                    <span style="color: #666; font-weight: bold;">Kaufpreis Durchschnitt: <span style="color: #28a745;">{{ kiste[2] }} €</span></span>
+                <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ø Kaufpreis</span>
+                    <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[2]) }} €</span>
+                </div>                
+                
+                <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ausgaben</span>
+                    <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[3]) }} €</span>
+                </div>
+
+                {% set text_color = '#28a745' if kiste[4] >= kiste[3] else '#e74c3c' %}
+                <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Aktueller Wert</span>
+                    <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">{{ "%.2f"|format(kiste[4]) }} €</span>
                 </div>
 
                 <div style="flex: 0.5; text-align: right;">
                     <form action="/item_loeschen" method="POST" style="margin: 0;">
                         <input type="hidden" name="kisten_name" value="{{ kiste[0] }}">
-                        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #e74c3c; transition: transform 0.2s;" title="Position löschen" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                        <button type="submit" style="background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #bbb; transition: all 0.2s ease;" title="Position löschen" onmouseover="this.style.transform='scale(1.2)'; this.style.color='#e74c3c';" onmouseout="this.style.transform='scale(1)'; this.style.color='#bbb';">
                             🗑️
                         </button>
                     </form>

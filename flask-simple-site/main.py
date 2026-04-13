@@ -27,11 +27,13 @@ def einloggen():
         if Wert == True:
             # Benutzername Speichern
             session['benutzername'] = Eingabe_Name
-            
             return redirect(url_for('dashboard_anzeigen'))
+        else:
+            # Wenn Wert False ist, zeige die Fehlermeldung
+            return render_template("LogInPage.html", fehlermeldung=Fehler)
 
-
-    return render_template("LogInPage.html", fehlermeldung=Fehler)
+    # Wenn die Seite nur normal geladen wird (GET)
+    return render_template("LogInPage.html")
 
 # Registrierungs-Daten abfragen
 @app.route("/register", methods=["GET", "POST"])
@@ -56,10 +58,13 @@ def dashboard_anzeigen():
         return redirect(url_for('startseite'))
         
     aktueller_benutzer = session['benutzername']
+
+    # Dynamische Kisten-Liste
+    Kisten_Liste = Alle_Kisten_abrufen()
     
     # Alle Werte für das Dashboard laden
     G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer)
-    return render_template("DashboardPage.html", gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
+    return render_template("DashboardPage.html", alle_kisten=Kisten_Liste, gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
 
 
 # Session löschen und abmelden
@@ -98,7 +103,7 @@ def item_loeschen():
    
 def main():
     Datenbank_Erstellen()
-    Kisten_Preis()
+    #Kisten_Preis()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
