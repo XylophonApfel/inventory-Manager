@@ -14,7 +14,7 @@ x {
 }
 
 
-/*Alles hier für das Login Feld auf der LogIn Seite */
+/*Alles hier für das Login Feld auf der LogIn */
 
 /* Lädt die Schriftart "DM Sans" von Google, damit sie auf der Seite verwendet werden kann */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -189,6 +189,17 @@ h2 {
     font-size: 14px;
 }
 
+/* Auswahlfeld auf dem Dashboard für die Kistenauswahl */
+.input-field2 {
+    width: 10%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+
 /* Submit Button Dashboard für die Kistenauswahl */
 .submit-btn1 {
     width: 10%;
@@ -354,18 +365,8 @@ label1 {
 .card-anzahl .card-value {
   color: #9C27B0;
 }
- 
-/* Gesamtgewinn – Grün */
-.card-gewinn .card-icon,
-.card-gewinn .card-value {
-  color: #4CAF50;
-}
- 
-/* Performance – Orange */
-.card-performance .card-icon,
-.card-performance .card-value {
-  color: #FF5722;
-}
+
+
 
 /* ===========================
    Diagramm Container
@@ -462,8 +463,9 @@ label1 {
   outline: none;
   transition: border-color 0.2s ease;
 }
- 
+
 .chart-dropdown:hover,
 .chart-dropdown:focus {
   border-color: #2196F3;
 }
+

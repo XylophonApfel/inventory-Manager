@@ -71,16 +71,22 @@
 
   <div class="card card-gewinn">
     <div>
+      {% set text_color = '#28a745' if gewinn >= 0 else '#e74c3c' %}
       <div class="card-label">Gewninn / Verlust nach abzug der Kaufkosten</div>
-      <div class="card-value">{{gewinn}} €</div>
+      <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">
+      {{ "%.2f"|format(gewinn) }} €
+      </span>
     </div>
     <div class="card-icon">↗</div>
   </div>
 
   <div class="card card-performance">
     <div>
+      {% set text_color = '#28a745' if gewinn_prozent >= 0 else '#e74c3c' %}
       <div class="card-label">Performance</div>
-      <div class="card-value">{{gewinn_prozent}} %</div>
+      <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">
+      {{ "%.2f"|format(gewinn_prozent) }} €
+      </span>
     </div>
     <div class="card-icon">〜</div>
   </div>
@@ -122,11 +128,10 @@
     </select>
 
     <label for="anzahl" style="padding:8px;"> Bitte die Anzahl der Kisten wählen: </label>
-    <input type="number" id="anzahl" name="anzahl" min="1" max="9999" step="1" value="1">
-
+    <input class="input-field2" type="number" id="anzahl" name="anzahl" min="1" max="9999" step="1" value="1">
 
     <label for="kaufpreis"> Bitte den Kaufpreis in Euro wählen: </label>
-    <input type="number" id="kaufpreis" name="kaufpreis" min="0.01" max="9999" step="0.01" value="1.00">
+    <input class="input-field2" type="number" id="kaufpreis" name="kaufpreis" min="0.01" max="9999" step="0.01" value="1.00">
 
     <button align="right" type="submit" class="submit-btn1"> Zum Inventar hinzufügen </button>
 
