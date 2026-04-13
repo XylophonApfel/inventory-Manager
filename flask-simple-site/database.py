@@ -59,3 +59,14 @@ def Datenbank_Befehl_Ausfuehren(Befehl, Parameter=()):
     con.commit()
     con.close()
     return
+
+# Prüfen ob ein Preis vorhanden ist
+def Preis_pruefen():
+    Prüfung = Datenbank_Befehl_Ausfuehren("SELECT * From preis_verlauf;")
+    if len(Prüfung) == 0:
+        Wert = 1
+    else:
+        Wert = 0
+
+    return Wert
+
