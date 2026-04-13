@@ -72,7 +72,10 @@ def Kiste_ID_Finden(Kiste):
 
 def User_loeschen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
+    # Benutzer löschen
     Datenbank_Befehl_Ausfuehren("DELETE FROM benutzer WHERE benutzer_id = ?;", (User_ID,))
+    # Kisten löschen
+    Datenbank_Befehl_Ausfuehren("DELETE FROM inventar WHERE benutzer_id = ?;", (User_ID,))
 
 # ==========================================
 # INVENTAR LOGIK
