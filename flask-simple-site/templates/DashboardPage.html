@@ -140,11 +140,11 @@
 </form>
 
 <div class="inventory-list-wrapper" style="margin-top: 40px; width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding: 0 20px;">
-    <h3 style="text-align: center; color: #333; margin-bottom: 20px;">Aktuelles Inventar</h3>
+    <h3 style="text-align: center; color: #000000; margin-bottom: 20px;">Aktuelles Inventar</h3>
     
     <div style="text-align: right; margin-bottom: 15px;">
       <form action="/dashboard" method="GET" style="display: inline-block;">
-        <label for="sortierung" style="color: #666; font-size: 0.9rem; margin-right: 10px;">Sortieren nach:</label>
+        <label for="sortierung" style="color: #000000; font-size: 0.9rem; margin-right: 10px;">Sortieren nach:</label>
         <select name="sortierung" onchange="this.form.submit()" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff; cursor: pointer;">
             <option value="menge_desc" {% if aktuelle_sortierung == 'menge_desc' %}selected{% endif %}>Anzahl (Meiste zuerst)</option>
             <option value="wert_desc" {% if aktuelle_sortierung == 'wert_desc' %}selected{% endif %}>Aktueller Wert (Höchster zuerst)</option>
@@ -168,18 +168,18 @@
                 </div>
 
                 <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ø Kaufpreis</span>
+                    <span style="color: #000000; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ø Kaufpreis</span>
                     <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[2]) }} €</span>
                 </div>                
                 
                 <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ausgaben</span>
+                    <span style="color: #000000; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ausgaben</span>
                     <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[3]) }} €</span>
                 </div>
 
                 {% set text_color = '#28a745' if kiste[4] >= kiste[3] else '#e74c3c' %}
                 <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <span style="color: #999; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Aktueller Wert</span>
+                    <span style="color: #000000; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Aktueller Wert</span>
                     <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">{{ "%.2f"|format(kiste[4]) }} €</span>
                 </div>
 
