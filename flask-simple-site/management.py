@@ -15,13 +15,17 @@ from database import *
 def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
     wert = Benutzer_vorhanden(Benutzername)
 
-    # Nur Buchstaben und Zahlen erlaubt
+    # Nur Buchstaben und Zahlen beim Benutzernamen erlaubt
     if not Benutzername.isalnum():
         wert = 3
         
-    # Mindestens 3 Zeichen lang
+    # Benutzername muss mindestens 3 Zeichen lang sein
     elif len(Benutzername) < 3:
         wert = 4
+        
+    # Prüfen, ob ein Leerzeichen im Passwort ist
+    elif " " in Passwort:
+        wert = 5
         
     # Passwörter abgleichen
     elif Passwort != Passwort_confirm:
@@ -45,6 +49,9 @@ def Benutzer_erstellen(Benutzername, Passwort, Passwort_confirm):
         return False, Fehler
     elif wert == 4:
         Fehler = "Der Benutzername muss mindestens 3 Zeichen lang sein!"
+        return False, Fehler
+    elif wert == 5:
+        Fehler = "Das Passwort darf keine Leerzeichen enthalten!"
         return False, Fehler
 
 # Prüft ob Benutzer schon existiert
@@ -216,25 +223,43 @@ def Gewinn_Verlust_Prozent(Benutzername):
 # Berechnet Historie für Chart.js
 def Portfolio_Historie_berechnen(Benutzername):
     User_ID = User_ID_Finden(Benutzername)
-    Befehl = """
-        SELECT DATE(p.zeitstempel) as tag, SUM(i.menge * p.preis) as gesamt_wert
-        FROM inventar i
-        JOIN preis_verlauf p ON i.item_id = p.item_id
-        WHERE i.benutzer_id = ?
-        GROUP BY tag
-        ORDER BY tag ASC
-        LIMIT 7;
-    """
-    Ergebnis = Datenbank_Befehl_Ausfuehren(Befehl, (User_ID,))
+    
+    # Hole die letzten 7 Tage
+    Tage_Abfrage = Datenbank_Befehl_Ausfuehren("SELECT DISTINCT DATE(zeitstempel) as tag FROM preis_verlauf ORDER BY tag DESC LIMIT 7;")
     
     labels = []
     werte = []
     
-    if Ergebnis:
-        for zeile in Ergebnis:
-            labels.append(zeile[0])
-            werte.append(round(zeile[1], 2))
-            
+    # Wenn die Datenbank noch komplett leer ist, brich ab
+    if not Tage_Abfrage:
+        return labels, werte
+        
+    # Die Liste umdrehen (ältestes Datum zuerst, für das Diagramm von links nach rechts)
+    Tage = [tag[0] for tag in Tage_Abfrage]
+    Tage.reverse()
+    
+    # Berechne den Portfoliowert für jeden dieser Tage
+    for tag in Tage:
+        Befehl = """
+            SELECT SUM(i.menge * COALESCE((
+                SELECT p.preis 
+                FROM preis_verlauf p 
+                WHERE p.item_id = i.item_id AND DATE(p.zeitstempel) <= ? 
+                ORDER BY p.zeitstempel DESC LIMIT 1
+            ), 0))
+            FROM inventar i 
+            WHERE i.benutzer_id = ?;
+        """
+        
+        # Führe die Berechnung für den aktuellen Tag aus
+        Tageswert_Roh = Datenbank_Befehl_Ausfuehren(Befehl, (tag, User_ID))[0][0]
+        
+        # Wert runden und in die Liste für das Diagramm eintragen
+        Tageswert = round(Tageswert_Roh, 2) if Tageswert_Roh is not None else 0.00
+        
+        labels.append(tag)
+        werte.append(Tageswert)
+        
     return labels, werte
 
 # Bündelt alle Werte für die Routen in main.py

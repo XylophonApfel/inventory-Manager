@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=os.path.join(BASE_DIR, "templates"))
 
 # Passwort für Session
-app.secret_key = "test"
+app.secret_key = os.urandom(24)
 
 # Login/Register-Seite aufrufen
 @app.route("/")
@@ -115,20 +115,33 @@ def item_loeschen():
     return redirect(url_for('dashboard_anzeigen'))
    
 def main():
+    os.system("cls")
     Datenbank_Erstellen()
     Kisten_In_Datenbanken_anlegen()
-    print("--------------------------------------------")
-    print("Bitte warten bis alle Preise geladen wurden!")
-    print("--------------------------------------------")
+
+    print("------------------------------------------------")
+    print("Bitte warten Sie bis alle Preise geladen wurden!")
+    print("------------------------------------------------")
+    
     Wert = Preis_pruefen()
     if Wert == True:
         Kisten_Preis()
 
+    print("------------------------------------------------")
+    print("Fertig")
+    print("------------------------------------------------")
+
 def beenden():
-    print("--------------------------------------------")
-    print("Bitte warten bis alle Preise geladen wurden!")
-    print("--------------------------------------------")
+    os.system("cls")
+    print("------------------------------------------------")
+    print("Bitte warten Sie bis alle Preise geladen wurden!")
+    print("------------------------------------------------")
+
     Kisten_Preis()
+
+    print("------------------------------------------------")
+    print("Fertig")
+    print("------------------------------------------------")
 
 if __name__ == "__main__":
     main()

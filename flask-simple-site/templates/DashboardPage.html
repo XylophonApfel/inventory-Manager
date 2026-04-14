@@ -172,15 +172,17 @@
                     <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[2]) }} €</span>
                 </div>                
                 
+                {% set ausgaben_wert = kiste[3] or 0 %}
                 <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                     <span style="color: #000000; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Ausgaben</span>
-                    <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(kiste[3]) }} €</span>
+                    <span style="color: #444; font-weight: bold; font-size: 1.05rem;">{{ "%.2f"|format(ausgaben_wert) }} €</span>
                 </div>
 
-                {% set text_color = '#28a745' if kiste[4] >= kiste[3] else '#e74c3c' %}
+                {% set aktueller_wert = kiste[4] or 0 %}
+                {% set text_color = '#28a745' if aktueller_wert|float >= ausgaben_wert|float else '#e74c3c' %}
                 <div style="flex: 1.5; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                     <span style="color: #000000; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px;">Aktueller Wert</span>
-                    <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">{{ "%.2f"|format(kiste[4]) }} €</span>
+                    <span style="color: {{ text_color }}; font-weight: bold; font-size: 1.1rem;">{{ "%.2f"|format(aktueller_wert) }} €</span>
                 </div>
 
                 <div style="flex: 0.5; text-align: right;">
