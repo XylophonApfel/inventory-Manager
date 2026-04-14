@@ -66,7 +66,7 @@ def dashboard_anzeigen():
     Kisten_Liste = Alle_Kisten_abrufen()
     
     # Alle Werte für das Dashboard laden
-    G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer)
+    G_Preis, G_Anzahl, Perf, Perf_Proz, Inv_Liste, Labels, Werte = Dashboard_Werte_abrufen(aktueller_benutzer, gewuenschte_sortierung)
     return render_template("DashboardPage.html", aktuelle_sortierung=gewuenschte_sortierung, alle_kisten=Kisten_Liste, gesamtwert=G_Preis, gesamt_items=G_Anzahl, gewinn=Perf, gewinn_prozent=Perf_Proz, inv_liste=Inv_Liste, chart_labels=json.dumps(Labels), chart_data=json.dumps(Werte))
 
 

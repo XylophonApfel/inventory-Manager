@@ -1,4 +1,4 @@
-('C:\\Users\\lanze\\OneDrive\\Desktop\\Schule\\Programmieren\\inventory-Manager\\build\\InventarManager\\PYZ-00.pyz',
+('C:\\Users\\lanze\\OneDrive\\Desktop\\Schule\\Programmieren\\inventory-Manager\\build_20260414_080516\\InventarManager\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\lanze\\AppData\\Roaming\\uv\\python\\cpython-3.14-windows-x86_64-none\\Lib\\__future__.py',
    'PYMODULE'),
