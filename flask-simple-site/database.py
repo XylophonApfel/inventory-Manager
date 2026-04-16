@@ -3,6 +3,7 @@ import sqlite3
 import sys
 
 
+#DB wird da angelegt wo die exe liegt 
 def _db_path():
     if getattr(sys, "frozen", False):
         base_dir = os.path.dirname(sys.executable)
@@ -29,13 +30,14 @@ def Datenbank_Erstellen():
         name TEXT UNIQUE NOT NULL,
         typ TEXT)''')
 
+    # "ON DELETE CASCADE"Löscht auch kisten zu benutzer automatisch
     cursor.execute('''CREATE TABLE IF NOT EXISTS inventar (
         inventar_id INTEGER PRIMARY KEY AUTOINCREMENT,
         benutzer_id INTEGER NOT NULL,
         item_id INTEGER NOT NULL,
         menge INTEGER DEFAULT 1,
         kaufpreis_stueck REAL,
-        FOREIGN KEY (benutzer_id) REFERENCES benutzer (benutzer_id) ON DELETE CASCADE,
+        FOREIGN KEY (benutzer_id) REFERENCES benutzer (benutzer_id) ON DELETE CASCADE, 
         FOREIGN KEY (item_id) REFERENCES gegenstand (item_id) ON DELETE CASCADE)''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS preis_verlauf (
@@ -50,7 +52,7 @@ def Datenbank_Erstellen():
     print("Datenbank und Tabellen wurden erfolgreich initialisiert!")
 
 
-# SQL-Befehl ausführen
+# SQL-Befehl ausführen mit SQL-Injection
 def Datenbank_Befehl_Ausfuehren(Befehl, Parameter=()):
     con = sqlite3.connect(_db_path())
     cur = con.cursor()
