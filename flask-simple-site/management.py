@@ -316,10 +316,12 @@ csgo_cases = [
     "Spectrum 2 Case", "Winter Offensive Weapon Case"
 ]
 
+# Nimmt die Liste von den Kisten und packt jede einzeln in die Datenbank
 def Kisten_In_Datenbanken_anlegen():
     for i in csgo_cases:
         Datenbank_Befehl_Ausfuehren("INSERT OR IGNORE INTO gegenstand (name, typ) VALUES(?, 'Kiste');", (i,))
 
+# Liest die Kistenpreise aus
 def Kisten_Preis():
     for i in csgo_cases:
         print(f"Lade Daten für: {i}")

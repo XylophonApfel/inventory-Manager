@@ -1,5 +1,6 @@
-
-/* Hintergrundbild */
+/**/
+/* Hintergrundbild auf allen Seiten abrufen */
+/**/
 body {
     background-image: url('https://4kwallpapers.com/images/wallpapers/modern-blue-waves-1920x1080-24611.jpg');  /* Lädt ein Bild aus dem Internet und setzt es als Hintergrundbild */
     background-repeat: no-repeat;                                                                               /* Das Bild wird NICHT wiederholt/gekachelt */
@@ -7,14 +8,9 @@ body {
     background-size: cover;                                                                                     /* Das Bild wird so gestreckt, dass es die gesamte Seite ausfüllt */
 }
 
-/* Alle a Elemente mit x werden so vorkonfiguriert */
-x {
-    color: black;                 /* Schriftfarbe = Schwarz */
-    text-decoration: none;          /* Entfernt die standardmäßige Unterstreichung bei Links */
-}
-
-
-/*Alles hier für das Login Feld auf der LogIn */
+/**/
+/* Alles hier für das Login Feld auf der LogIn */
+/**/
 
 /* Lädt die Schriftart "DM Sans" von Google, damit sie auf der Seite verwendet werden kann */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
@@ -130,7 +126,9 @@ x {
     font-size: 0.9rem;
 }
 
-
+/**/
+/* Hier werden die Überschriften h1 und h2 grafische Vordefiniert */
+/**/
 
 h1 {
             font-family: Helvetica, sans-serif;         /* Font style */
@@ -145,8 +143,6 @@ h1 {
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);    /* Drop shadow */
         }
 
-
-
 h2 {
             font-family: Helvetica, sans-serif;         /* Font style */
             font-size: 36px;                            /* Text size */
@@ -157,221 +153,15 @@ h2 {
             background-color: #ecf0f1;                /* Background color */
             padding: 10px;                              /* Space inside */
             border-radius: 8px;                         /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 100%;    /* Drop shadow */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);    /* Drop shadow */
+            width: 100%;                                /* Breite */
         }
 
+/**/
+/* Hier wird das Diagramm grafische Vordefiniert */
+/**/
 
-/* Diagramm 1 */
-.chart-btn1 {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  background-color: #2196F3;
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin-left: 8px;
-}
-
-.chart-btn1:hover {
-  background-color: #1976D2;
-}
-/* Auswahlfeld auf dem Dashboard für die Kistenauswahl */
-.input-field1 {
-    width: 20%;
-    padding: 12px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 14px;
-}
-
-/* Auswahlfeld auf dem Dashboard für die Kistenauswahl */
-.input-field2 {
-    width: 10%;
-    padding: 12px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 14px;
-}
-
-
-/* Submit Button Dashboard für die Kistenauswahl */
-.submit-btn1 {
-    width: 10%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: #ff0000;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-left: 145px;  /* Sorgt dafür das der Button nach links verschoben wird */
-}
-
-
-
-/* Logout Button Dashboard */
-.logout-btn {
-    right: 20px;                  /* 20px vom rechten Rand */
-    padding: 10px 20px;           /* Innenabstand */
-    background-color: #ff0000;  /* Rote Hintergrundfarbe */
-    color: white;               /* Weiße Schrift */
-    text-decoration: none;        /* Keine Unterstreichung */
-    border-radius: 5px;           /* Leicht abgerundete Ecken */
-    font-weight: bold;            /* Fettschrift */
-    position: absolute;           /* Wird exakt auf der Seite platziert */
-    top: 67px;                    /* 67px vom oberen Rand */
-    right: 20px;                  /* 20px vom rechten Rand */
-}
-
-
-
-/* Benutzer Löschen Button auf dem Dashboard */
-.delete-user {
-    left: 20px;
-    padding: 10px 20px;
-    background-color: #ff0000;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    position: absolute;                   /* Wird exakt auf der Seite platziert */
-    top: 67px;                            /* 67px vom oberen Rand */
-    left: 20px;                           /* 20px vom linken Rand */
-}
-
-
-
-/* Form für den Gesamtwert des Inventars */
-label1 {
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #16b47f;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    position: absolute;
-    top: 42px;                          /* Gleiche Höhe wie die h2 – Wert anpassen */
-    right: 20px;
-}
-
-/* Container für den Gesamtwert */
-.container1 {
-    width: 60px;
-    max-width: 60px;
-}
-
-.form-container1 {
-    position: fixed;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgb(255, 255, 255);
-    overflow: hidden;
-}
-
-
-.container2 {
-    width: 60px;
-    max-width: 60px;
-}
-
-.form-container2 {
-    position: fixed;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.151);
-    overflow: hidden;
-}
-
-
-/* ===========================
-   Dashboard Cards Layout
-   =========================== */
- 
-.dashboard-wrapper {
-  display: flex;          /* ← das ist entscheidend! */
-  flex-direction: row;    /* ← nebeneinander (ist Standard, aber zur Sicherheit) */
-  gap: 16px;
-  padding: 20px;
-  background-color: transparent;
-}
- 
-/* ===========================
-   Einzelne Karte
-   =========================== */
- 
-.card {
-  flex: 1;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
- 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
- 
-/* ===========================
-   Text innerhalb der Karte
-   =========================== */
- 
-.card-label {
-  font-size: 13px;
-  color: #888888;
-  margin-bottom: 8px;
-}
- 
-.card-value {
-  font-size: 22px;
-  font-weight: 600;
-  color: #1a2035;
-}
- 
-/* ===========================
-   Icon innerhalb der Karte
-   =========================== */
- 
-.card-icon {
-  font-size: 28px;
-}
- 
-/* ===========================
-   Farb-Varianten pro Karte
-   =========================== */
- 
-/* Gesamtwert – Blau */
-.card-gesamtwert .card-icon,
-.card-gesamtwert .card-value {
-  color: #2196F3;
-}
- 
-/* Anzahl Items – Lila */
-.card-anzahl .card-icon,
-.card-anzahl .card-value {
-  color: #9C27B0;
-}
-
-
-
-/* ===========================
-   Diagramm Container
-   =========================== */
- 
+/* Diagramm Container */
 .chart-wrapper {
   background: #ffffff;
   border-radius: 12px;
@@ -392,41 +182,149 @@ label1 {
   font-weight: 600;
   color: #1a2035;
 }
- 
-/* ===========================
-   Dropdown
-   =========================== */
- 
-.chart-dropdown {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  background-color: #f9f9f9;
-  font-size: 13px;
-  color: #1a2035;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
- 
-.chart-dropdown:hover,
-.chart-dropdown:focus {
-  border-color: #2196F3;
-}
- 
-/* ===========================
-   Canvas
-   =========================== */
- 
+
+/* Höhe des Containers wo sich das Diagramm drin befindet */
 .chart-canvas-wrapper {
   position: relative;
   height: 300px;
 }
 
-/* ===========================
-   Dropdown Menu
-   =========================== */
+/**/
+/* Alles hier für das Dropdown Menu, Anzahl der Kisten, Preis eingabe */
+/**/
 
+/* Dropdown Feld für die Kistenauswahl */
+.input-field1 {
+    width: 20%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Auswahlfeld auf dem Dashboard für die Anzahl der Kisten und den Preis */
+.input-field2 {
+    width: 10%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Submit Button auf dem Dashboard um die Kiste, den Preis und die Anzahl zu bestätigen */
+.submit-btn1 {
+    width: 10%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ff0000;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 145px;  /* Sorgt dafür das der Button nach links verschoben wird */
+}
+
+/**/
+/* Hier wird der Log Out Button defieniert */
+/**/
+
+/* Logout Button Dashboard */
+.logout-btn {
+    right: 20px;                  /* 20px vom rechten Rand */
+    padding: 10px 20px;           /* Innenabstand */
+    background-color: #ff0000;  /* Rote Hintergrundfarbe */
+    color: white;               /* Weiße Schrift */
+    text-decoration: none;        /* Keine Unterstreichung */
+    border-radius: 5px;           /* Leicht abgerundete Ecken */
+    font-weight: bold;            /* Fettschrift */
+    position: absolute;           /* Wird exakt auf der Seite platziert */
+    top: 67px;                    /* 67px vom oberen Rand */
+    right: 20px;                  /* 20px vom rechten Rand */
+}
+
+/**/
+/* Hier wird der Button Benutzer löschen vordefiniert */
+/**/
+
+/* Benutzer Löschen Button auf dem Dashboard */
+.delete-user {
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;                   /* Wird exakt auf der Seite platziert */
+    top: 67px;                            /* 67px vom oberen Rand */
+    left: 20px;                           /* 20px vom linken Rand */
+}
+
+/**/
+/* Hier werden die Kästchen für die Werte: Gesamtwert des Inventars, Anzahl der Kisten, Gewinn/Verlust nach Abzug der Kaufkosten, Performance definiert */
+/**/
+
+.dashboard-wrapper {
+  display: flex;          
+  flex-direction: row;
+  gap: 16px;
+  padding: 20px;
+  background-color: transparent;
+}
+
+/* Einzelne Karte  */
+.card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+ 
+/* Text innerhalb der Karten */
+.card-label {
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 8px;
+}
+ 
+.card-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a2035;
+}
+ 
+/* Icon innerhalb der Karte */
+.card-icon {
+  font-size: 28px;
+}
+
+/* Farb-Varianten pro Karte */
+/* Gesamtwert – Blau */
+.card-gesamtwert .card-icon,
+.card-gesamtwert .card-value {
+  color: #2196F3;
+}
+ 
+/* Anzahl Items – Lila */
+.card-anzahl .card-icon,
+.card-anzahl .card-value {
+  color: #9C27B0;
+}
+
+/* Definiert den Container im Hintergrund für das Dropdown Menu der Kistenauswahl, Preis, Anzahl und Button */
 .container_für_dropdown {
   background: #ffffff;
   border-radius: 12px;
@@ -447,25 +345,3 @@ label1 {
   font-weight: 600;
   color: #1a2035;
 }
- 
-/* ===========================
-   Dropdown
-   =========================== */
- 
-.chart-dropdown {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  background-color: #f9f9f9;
-  font-size: 13px;
-  color: #1a2035;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.chart-dropdown:hover,
-.chart-dropdown:focus {
-  border-color: #2196F3;
-}
-

@@ -1,0 +1,88 @@
+Inhaltsverzeichnis:
+
+1. main.py
+2. management.py
+3. script.js
+4. style.css
+
+--------------------------------------
+
+1. main.py
+
+Zeile 10: Passwort für Session
+Zeile 13: Login/Register-Seite aufrufen
+Zeile 18: Logindaten abfragen
+Zeile 38: Registrierungs-Daten abfragen
+Zeile 56: Laden des Dashboards
+Zeile 75: Session löschen und abmelden
+Zeile 81: Account löschen
+Zeile 91: Kisten in Datenbank schreiben
+Zeile 106: Kisten aus Datenbank löschen
+Zeile 119: Darstellung in der CMD wenn die EXE ausgeführt wird
+
+--------------------------------------
+
+2. management.py
+
+Zeile 10 - 104: Benutzer Logik
+
+    -Erstellt einen neuen Benutzer
+    -Nur Buchstaben und Zahlen beim Benutzernamen erlaubt
+    -Benutzername muss mindestens 3 Zeichen lang sein
+    -Prüfen, ob ein Leerzeichen im Passwort ist
+    -Passwörter abgleichen
+    -Auswertung der Ergebnisse
+    -Prüft ob Benutzer schon existiert
+    -Loggt den Benutzer ein
+    -Findet die ID eines Benutzers
+    -Findet die ID einer Kiste
+    -Benutzer löschen
+    -Kisten löschen
+
+Zeile 105 - 172: Inventar Logik
+
+    -Fügt Kisten hinzu oder updatet die Menge/Preis
+    -Löscht eine komplette Kisten-Position
+    -Holt alle Items für die Liste
+    -Sortierung
+    -Holt alle Kisten-Namen aus der Datenbank für das Menü
+
+Zeile 172 - 300: Berechnungen
+
+    -Berechnet aktuellen Wert
+    -Berechnet ausgegebenes Geld
+    -Addiert alle Kistenmengen
+    -Gewinn oder Verlust in Euro
+    -Gewinn in Prozent
+    -Berechnet Historie für Chart.js
+    -Hole die letzten 7 Tage
+    -Wenn die Datenbank noch komplett leer ist, brich ab
+    -Die Liste umdrehen (ältestes Datum zuerst, für das Diagramm von links nach rechts)
+    -Berechne den Portfoliowert für jeden dieser Tage
+    -Führe die Berechnung für den aktuellen Tag aus
+    -Wert runden und in die Liste für das Diagramm eintragen
+    -Bündelt alle Werte für die Routen in main.py
+
+Zeile 300: STEAM API
+
+    -Nimmt die Liste von den Kisten und packt jede einzeln in die Datenbank
+    -Liest die Kistenpreise aus
+
+--------------------------------------
+
+3. scrpit.js
+
+Zeile 32 - 78: Diagramm initialisieren
+
+--------------------------------------
+
+4. style.css
+
+Zeile 2: Hintergrundbild auf allen Seiten abrufen
+Zeile 12 - 130: Alles hier für das Login Feld auf der LogIn
+Zeile 130: Hier werden die Überschriften h1 und h2 grafische Vordefiniert
+Zeile 161: Hier wird das Diagramm grafische Vordefiniert
+Zeile 193: Alles hier für das Dropdown Menu, Anzahl der Kisten, Preis eingabe
+Zeile 231: Hier wird der Log Out Button defieniert
+Zeile 249: Hier wird der Button Benutzer löschen vordefiniert
+Zeile 267: Hier werden die Kästchen für die Werte: Gesamtwert des Inventars, Anzahl der Kisten, Gewinn/Verlust nach Abzug der Kaufkosten, Performance definiert

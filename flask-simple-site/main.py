@@ -52,6 +52,8 @@ def Registrieren():
             
     return render_template("RegisterPage.html")
 
+
+# Laden des Dashboards
 @app.route("/dashboard")
 def dashboard_anzeigen():
     if 'benutzername' not in session:
@@ -113,7 +115,8 @@ def item_loeschen():
     # Funktion zum Löschen aufrufen
     User_Item_loeschen(aktueller_benutzer, kisten_name)
     return redirect(url_for('dashboard_anzeigen'))
-   
+
+# Darstellung in der CMD wenn die EXE ausgeführt wird
 def main():
     os.system("cls")
     Datenbank_Erstellen()
@@ -147,5 +150,3 @@ if __name__ == "__main__":
     main()
     app.run(host="127.0.0.1", port=5000)
     beenden()
-    
-
